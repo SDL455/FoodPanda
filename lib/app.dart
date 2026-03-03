@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foodpanda/cores/themes/themes.dart';
 
 import 'package:foodpanda/features/admin/views/admin_dishboard.dart';
 import 'package:foodpanda/features/admin/views/widget/relo_card.dart';
@@ -10,11 +11,11 @@ class RoleSelectionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [Colors.pink.shade400, Colors.pink.shade700],
+            colors: AppColors.primaryGradient,
           ),
         ),
         child: SafeArea(
@@ -26,19 +27,26 @@ class RoleSelectionScreen extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.restaurant, size: 80, color: Colors.white),
-                      SizedBox(height: 20),
-                      Text(
+                      const Icon(
+                        Icons.restaurant,
+                        size: 80,
+                        color: AppColors.white,
+                      ),
+                      const SizedBox(height: 20),
+                      const Text(
                         'Foodpanda',
                         style: TextStyle(
                           fontSize: 32,
                           fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                          color: AppColors.white,
                         ),
                       ),
                       Text(
                         'Select Your Role',
-                        style: TextStyle(fontSize: 18, color: Colors.white70),
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: AppColors.white.withOpacity(0.7),
+                        ),
                       ),
                     ],
                   ),
@@ -47,14 +55,14 @@ class RoleSelectionScreen extends StatelessWidget {
               Expanded(
                 flex: 3,
                 child: Container(
-                  padding: EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(20),
                   child: Column(
                     children: [
                       RoleCard(
                         title: 'Admin',
                         subtitle: 'Manage platform operations',
                         icon: Icons.admin_panel_settings,
-                        color: Colors.blue,
+                        color: AppColors.admin,
                         onTap: () => Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -62,12 +70,12 @@ class RoleSelectionScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       RoleCard(
                         title: 'Customer',
                         subtitle: 'Order delicious food',
                         icon: Icons.person,
-                        color: Colors.green,
+                        color: AppColors.customer,
                         onTap: () => Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -75,12 +83,12 @@ class RoleSelectionScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       RoleCard(
                         title: 'Rider',
                         subtitle: 'Deliver food to customers',
                         icon: Icons.delivery_dining,
-                        color: Colors.orange,
+                        color: AppColors.rider,
                         onTap: () => Navigator.push(
                           context,
                           MaterialPageRoute(

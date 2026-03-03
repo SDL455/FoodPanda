@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:foodpanda/cores/themes/themes.dart';
 
 class AdminOrders extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       child: Column(
         children: [
-          Text(
+          const Text(
             'Order Management',
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Expanded(
             child: ListView.builder(
               itemCount: 20,
@@ -27,23 +28,26 @@ class AdminOrders extends StatelessWidget {
                 Color statusColor = _getStatusColor(status);
 
                 return Card(
-                  margin: EdgeInsets.symmetric(vertical: 4),
+                  margin: const EdgeInsets.symmetric(vertical: 4),
                   child: ListTile(
                     leading: CircleAvatar(
-                      backgroundColor: statusColor.withOpacity(0.1),
+                      backgroundColor: AppColors.withOpacity(statusColor, 0.1),
                       child: Text(
                         '#${1000 + index}',
-                        style: TextStyle(fontSize: 10),
+                        style: const TextStyle(fontSize: 10),
                       ),
                     ),
                     title: Text('Order #${1000 + index}'),
-                    subtitle: Text(
+                    subtitle: const Text(
                       'Customer: John Doe • Restaurant: Pizza Palace',
                     ),
                     trailing: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 4,
+                      ),
                       decoration: BoxDecoration(
-                        color: statusColor.withOpacity(0.1),
+                        color: AppColors.withOpacity(statusColor, 0.1),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Text(
@@ -65,17 +69,17 @@ class AdminOrders extends StatelessWidget {
   Color _getStatusColor(String status) {
     switch (status) {
       case 'Pending':
-        return Colors.orange;
+        return AppColors.statusPending;
       case 'Confirmed':
-        return Colors.blue;
+        return AppColors.statusConfirmed;
       case 'Preparing':
-        return Colors.purple;
+        return AppColors.statusPreparing;
       case 'On the way':
-        return Colors.indigo;
+        return AppColors.statusOnTheWay;
       case 'Delivered':
-        return Colors.green;
+        return AppColors.statusDelivered;
       default:
-        return Colors.grey;
+        return AppColors.statusDefault;
     }
   }
 }

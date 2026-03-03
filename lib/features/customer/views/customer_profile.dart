@@ -1,81 +1,159 @@
 import 'package:flutter/material.dart';
+import 'package:foodpanda/features/auth/controllers/auth_controller.dart';
+import 'package:foodpanda/features/auth/views/customer_login_page.dart';
 import 'package:foodpanda/features/rider/views/widgets/profile_menu_item.dart';
+import 'package:get/get.dart';
 
-/// Updated `CustomerProfile` screen that navigates to dedicated pages for each
-/// menu item. Each destination page contains a clean, modern UI scaffold that
-/// you can further extend with real data or business logic.
 class CustomerProfile extends StatelessWidget {
   const CustomerProfile({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            const CircleAvatar(
-              radius: 50,
-              backgroundImage: NetworkImage(
-                'https://images.immediate.co.uk/production/volatile/sites/30/2023/06/Ultraprocessed-food-58d54c3.jpg?quality=90&webp=true&resize=440,400',
+    final auth = Get.isRegistered<AuthController>()
+        ? Get.find<AuthController>()
+        : Get.put(AuthController(), permanent: true);
+
+    return Obx(() {
+      final user = auth.user.value;
+      if (user == null) {
+        return SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Center(
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 420),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircleAvatar(
+                      radius: 48,
+                      backgroundColor: Theme.of(
+                        context,
+                      ).colorScheme.primaryContainer,
+                      child: Icon(
+                        Icons.person_outline,
+                        size: 52,
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      'ກະລຸນາເຂົ້າສູ່ລະບົບ',
+                      style: Theme.of(context).textTheme.headlineSmall
+                          ?.copyWith(fontWeight: FontWeight.w700),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      'ເຂົ້າສູ່ລະບົບເພື່ອເບິ່ງຂໍ້ມູນໂປຣໄຟລ໌ ແລະ ຈັດການການຕັ້ງຄ່າ.',
+                      style: Theme.of(
+                        context,
+                      ).textTheme.bodyMedium?.copyWith(color: Colors.grey),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 20),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 50,
+                      child: ElevatedButton.icon(
+                        onPressed: () =>
+                            Get.to(() => const CustomerLoginPage()),
+                        icon: const Icon(Icons.login),
+                        label: const Text('ເຂົ້າສູ່ລະບົບ'),
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(14),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-            const SizedBox(height: 16),
-            const Text(
-              'John Doe',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            const Text(
-              'john.doe@email.com',
-              style: TextStyle(color: Colors.grey),
-            ),
-            const SizedBox(height: 30),
-            Expanded(
-              child: ListView(
-                children: [
-                  ProfileMenuItem(
-                    icon: Icons.location_on,
-                    title: 'Addresses',
-                    onTap: () => _goto(context, const AddressesPage()),
-                  ),
-                  ProfileMenuItem(
-                    icon: Icons.payment,
-                    title: 'Payment Methods',
-                    onTap: () => _goto(context, const PaymentMethodsPage()),
-                  ),
-                  ProfileMenuItem(
-                    icon: Icons.notifications,
-                    title: 'Notifications',
-                    onTap: () => _goto(context, const NotificationsPage()),
-                  ),
-                  ProfileMenuItem(
-                    icon: Icons.help,
-                    title: 'Help & Support',
-                    onTap: () => _goto(context, const HelpSupportPage()),
-                  ),
-                  ProfileMenuItem(
-                    icon: Icons.settings,
-                    title: 'Settings',
-                    onTap: () => _goto(context, const SettingsPage()),
-                  ),
-                  ProfileMenuItem(
-                    icon: Icons.logout,
-                    title: 'Logout',
-                    onTap: () => _confirmLogout(context),
-                  ),
-                ],
+          ),
+        );
+      }
+
+      final name = user.displayName?.trim().isNotEmpty == true
+          ? user.displayName!.trim()
+          : 'Customer';
+      final email = user.email?.trim().isNotEmpty == true
+          ? user.email!.trim()
+          : 'No email';
+      final photoUrl = user.photoURL;
+
+      return SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            children: [
+              CircleAvatar(
+                radius: 50,
+                backgroundImage: photoUrl == null || photoUrl.isEmpty
+                    ? null
+                    : NetworkImage(photoUrl),
+                child: photoUrl == null || photoUrl.isEmpty
+                    ? const Icon(Icons.person, size: 50)
+                    : null,
               ),
-            ),
-          ],
+              const SizedBox(height: 16),
+              Text(
+                name,
+                style: const TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(email, style: const TextStyle(color: Colors.grey)),
+              const SizedBox(height: 30),
+              Expanded(
+                child: ListView(
+                  children: [
+                    ProfileMenuItem(
+                      icon: Icons.location_on,
+                      title: 'Addresses',
+                      onTap: () => _goto(context, const AddressesPage()),
+                    ),
+                    ProfileMenuItem(
+                      icon: Icons.payment,
+                      title: 'Payment Methods',
+                      onTap: () => _goto(context, const PaymentMethodsPage()),
+                    ),
+                    ProfileMenuItem(
+                      icon: Icons.notifications,
+                      title: 'Notifications',
+                      onTap: () => _goto(context, const NotificationsPage()),
+                    ),
+                    ProfileMenuItem(
+                      icon: Icons.help,
+                      title: 'Help & Support',
+                      onTap: () => _goto(context, const HelpSupportPage()),
+                    ),
+                    ProfileMenuItem(
+                      icon: Icons.settings,
+                      title: 'Settings',
+                      onTap: () => _goto(context, const SettingsPage()),
+                    ),
+                    ProfileMenuItem(
+                      icon: Icons.logout,
+                      title: 'Logout',
+                      onTap: () => _confirmLogout(context, auth),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   void _goto(BuildContext context, Widget page) =>
       Navigator.of(context).push(MaterialPageRoute(builder: (_) => page));
 
-  void _confirmLogout(BuildContext context) {
+  void _confirmLogout(BuildContext context, AuthController auth) {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
@@ -87,9 +165,9 @@ class CustomerProfile extends StatelessWidget {
             child: const Text('Cancel'),
           ),
           ElevatedButton(
-            onPressed: () {
-              // TODO: implement your logout logic here
-              Navigator.of(ctx).pop();
+            onPressed: () async {
+              await auth.signOut();
+              if (ctx.mounted) Navigator.of(ctx).pop();
             },
             child: const Text('Logout'),
           ),

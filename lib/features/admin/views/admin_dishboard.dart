@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foodpanda/cores/themes/themes.dart';
 import 'package:foodpanda/features/admin/views/admin_anlytics.dart';
 import 'package:foodpanda/features/admin/views/admin_orders.dart';
 import 'package:foodpanda/features/admin/views/admin_over_view.dart';
@@ -25,11 +26,17 @@ class _AdminDashboardState extends State<AdminDashboard> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Admin Dashboard'),
-        backgroundColor: Colors.blue,
+        title: const Text('Admin Dashboard'),
+        backgroundColor: AppColors.admin,
         actions: [
-          IconButton(icon: Icon(Icons.notifications), onPressed: () {}),
-          IconButton(icon: Icon(Icons.account_circle), onPressed: () {}),
+          IconButton(
+            icon: const Icon(Icons.notifications),
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: const Icon(Icons.account_circle),
+            onPressed: () {},
+          ),
         ],
       ),
       body: _pages[_selectedIndex],
@@ -37,8 +44,8 @@ class _AdminDashboardState extends State<AdminDashboard> {
         type: BottomNavigationBarType.fixed,
         currentIndex: _selectedIndex,
         onTap: (index) => setState(() => _selectedIndex = index),
-        selectedItemColor: Colors.blue,
-        items: [
+        selectedItemColor: AppColors.admin,
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.dashboard),
             label: 'Overview',
