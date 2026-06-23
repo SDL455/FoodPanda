@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:foodpanda/features/rider/controllers/rider_controller.dart';
 import 'package:foodpanda/features/rider/views/rider_earnings.dart';
 import 'package:foodpanda/features/rider/views/rider_home.dart';
 import 'package:foodpanda/features/rider/views/rider_orders.dart';
 import 'package:foodpanda/features/rider/views/rider_profile.dart';
 
-class RiderDashboard extends StatefulWidget {
-  @override
-  _RiderDashboardState createState() => _RiderDashboardState();
-}
-
-class _RiderDashboardState extends State<RiderDashboard> {
-  int _selectedIndex = 0;
-  // ignore: unused_field
-  bool _isOnline = false;
+class RiderDashboard extends StatelessWidget {
+  final RiderController controller = Get.find<RiderController>();
 
   final List<Widget> _pages = [
     RiderHome(),
@@ -24,11 +19,11 @@ class _RiderDashboardState extends State<RiderDashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _pages[_selectedIndex],
-      bottomNavigationBar: BottomNavigationBar(
+      body: Obx(() => _pages[controller.selectedIndex]),
+      bottomNavigationBar: Obx(() => BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        currentIndex: _selectedIndex,
-        onTap: (index) => setState(() => _selectedIndex = index),
+        currentIndex: controller.selectedIndex,
+        onTap: (index) => controller.changeTab(index),
         selectedItemColor: Colors.orange,
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
@@ -39,7 +34,7 @@ class _RiderDashboardState extends State<RiderDashboard> {
           ),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
         ],
-      ),
+      )),
     );
   }
 }

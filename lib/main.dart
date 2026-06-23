@@ -1,20 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:foodpanda/app.dart';
+import 'package:get/get.dart';
+import 'package:foodpanda/routes/app_routes.dart';
 
 void main() {
-  runApp(FoodpandaApp());
-}
-
-class FoodpandaApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
+  runApp(
+    GetMaterialApp(
       title: 'Foodpanda',
       theme: ThemeData(primarySwatch: Colors.pink, fontFamily: 'Roboto'),
-      home: RoleSelectionScreen(),
-      // home: ProductDashboard(),
-      // home: AdminDashboard(),
+      initialRoute: AppRoutes.splash,
+      getPages: AppRoutes.routes,
       debugShowCheckedModeBanner: false,
-    );
-  }
+    ),
+  );
 }

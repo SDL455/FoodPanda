@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-
-import 'package:foodpanda/features/admin/views/admin_dishboard.dart';
-import 'package:foodpanda/features/admin/views/widget/relo_card.dart';
-import 'package:foodpanda/features/customer/views/customer_dashboard.dart';
-import 'package:foodpanda/features/rider/views/rider_dashboard.dart';
+import 'package:get/get.dart';
+import 'package:foodpanda/routes/app_routes.dart';
 
 class RoleSelectionScreen extends StatelessWidget {
   @override
@@ -55,12 +52,7 @@ class RoleSelectionScreen extends StatelessWidget {
                         subtitle: 'Manage platform operations',
                         icon: Icons.admin_panel_settings,
                         color: Colors.blue,
-                        onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => AdminDashboard(),
-                          ),
-                        ),
+                        onTap: () => Get.toNamed(AppRoutes.adminDashboard),
                       ),
                       SizedBox(height: 20),
                       RoleCard(
@@ -68,12 +60,7 @@ class RoleSelectionScreen extends StatelessWidget {
                         subtitle: 'Order delicious food',
                         icon: Icons.person,
                         color: Colors.green,
-                        onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => CustomerHome(),
-                          ),
-                        ),
+                        onTap: () => Get.toNamed(AppRoutes.customerDashboard),
                       ),
                       SizedBox(height: 20),
                       RoleCard(
@@ -81,12 +68,7 @@ class RoleSelectionScreen extends StatelessWidget {
                         subtitle: 'Deliver food to customers',
                         icon: Icons.delivery_dining,
                         color: Colors.orange,
-                        onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => RiderDashboard(),
-                          ),
-                        ),
+                        onTap: () => Get.toNamed(AppRoutes.riderDashboard),
                       ),
                     ],
                   ),
@@ -95,6 +77,40 @@ class RoleSelectionScreen extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class RoleCard extends StatelessWidget {
+  final String title;
+  final String subtitle;
+  final IconData icon;
+  final Color color;
+  final VoidCallback onTap;
+
+  const RoleCard({
+    required this.title,
+    required this.subtitle,
+    required this.icon,
+    required this.color,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 4,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      child: ListTile(
+        leading: CircleAvatar(
+          backgroundColor: color.withOpacity(0.1),
+          child: Icon(icon, color: color),
+        ),
+        title: Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
+        subtitle: Text(subtitle),
+        trailing: Icon(Icons.arrow_forward_ios, color: color),
+        onTap: onTap,
       ),
     );
   }

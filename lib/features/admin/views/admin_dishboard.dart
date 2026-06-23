@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:foodpanda/features/admin/controllers/admin_controller.dart';
 import 'package:foodpanda/features/admin/views/admin_anlytics.dart';
 import 'package:foodpanda/features/admin/views/admin_orders.dart';
 import 'package:foodpanda/features/admin/views/admin_over_view.dart';
 import 'package:foodpanda/features/admin/views/admin_restaurants.dart';
 import 'package:foodpanda/features/admin/views/admin_riders.dart';
 
-class AdminDashboard extends StatefulWidget {
-  @override
-  _AdminDashboardState createState() => _AdminDashboardState();
-}
-
-class _AdminDashboardState extends State<AdminDashboard> {
-  int _selectedIndex = 0;
+class AdminDashboard extends StatelessWidget {
+  final AdminController controller = Get.find<AdminController>();
 
   final List<Widget> _pages = [
     AdminOverview(),
@@ -32,11 +29,11 @@ class _AdminDashboardState extends State<AdminDashboard> {
           IconButton(icon: Icon(Icons.account_circle), onPressed: () {}),
         ],
       ),
-      body: _pages[_selectedIndex],
-      bottomNavigationBar: BottomNavigationBar(
+      body: Obx(() => _pages[controller.selectedIndex]),
+      bottomNavigationBar: Obx(() => BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        currentIndex: _selectedIndex,
-        onTap: (index) => setState(() => _selectedIndex = index),
+        currentIndex: controller.selectedIndex,
+        onTap: (index) => controller.changeTab(index),
         selectedItemColor: Colors.blue,
         items: [
           BottomNavigationBarItem(
@@ -57,7 +54,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
             label: 'Analytics',
           ),
         ],
-      ),
+      )),
     );
   }
 }
