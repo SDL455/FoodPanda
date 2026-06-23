@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "381894296365",
-    "project_id": "titok-1c1a5",
-    "storage_bucket": "titok-1c1a5.firebasestorage.app"
+    "project_number": "126223909088",
+    "project_id": "foodpanda-42a3a",
+    "storage_bucket": "foodpanda-42a3a.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:381894296365:android:bfd3e7039cfc4f851389a4",
+        "mobilesdk_app_id": "1:126223909088:android:d34ad691876067108d9085",
         "android_client_info": {
-          "package_name": "com.example.foodpanda"
+          "package_name": "com.foodpanda"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCsjFEqwy_soptIPatMm0vlmv5W2fZ2iJc"
+          "current_key": "AIzaSyDJbunTkct8T-NTesKsoF9aWULzUcqxJBs"
         }
       ],
       "services": {

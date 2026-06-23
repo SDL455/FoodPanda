@@ -41,48 +41,46 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyA03NIu3HlH18Lu5bvPMAlD2NY-LrcI-y4',
-    appId: '1:381894296365:web:27ddab817d1246a81389a4',
-    messagingSenderId: '381894296365',
-    projectId: 'titok-1c1a5',
-    authDomain: 'titok-1c1a5.firebaseapp.com',
-    storageBucket: 'titok-1c1a5.firebasestorage.app',
-    measurementId: 'G-DQE2Q703JP',
+    apiKey: 'AIzaSyAg8sAF1fvtwSBQ1ad7fos_REEjTAAvDzg',
+    appId: '1:126223909088:web:c322e7dd64cefaa78d9085',
+    messagingSenderId: '126223909088',
+    projectId: 'foodpanda-42a3a',
+    authDomain: 'foodpanda-42a3a.firebaseapp.com',
+    storageBucket: 'foodpanda-42a3a.firebasestorage.app',
+    measurementId: 'G-7D6GR38RM9',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCsjFEqwy_soptIPatMm0vlmv5W2fZ2iJc',
-    appId: '1:381894296365:android:bfd3e7039cfc4f851389a4',
-    messagingSenderId: '381894296365',
-    projectId: 'titok-1c1a5',
-    storageBucket: 'titok-1c1a5.firebasestorage.app',
+    apiKey: 'AIzaSyDJbunTkct8T-NTesKsoF9aWULzUcqxJBs',
+    appId: '1:126223909088:android:d34ad691876067108d9085',
+    messagingSenderId: '126223909088',
+    projectId: 'foodpanda-42a3a',
+    storageBucket: 'foodpanda-42a3a.firebasestorage.app',
   );
-
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyD1EllKK0-wDSPnZrKyrXIilXvDqtFBbKg',
-    appId: '1:381894296365:ios:9d6121a5065ca1f61389a4',
-    messagingSenderId: '381894296365',
-    projectId: 'titok-1c1a5',
-    storageBucket: 'titok-1c1a5.firebasestorage.app',
-    iosBundleId: 'com.example.foodpanda',
+    apiKey: 'AIzaSyBOeRuCk4wjxScYSWjWwrlViGNCDqkIDbU',
+    appId: '1:126223909088:ios:b05fb0358ced25758d9085',
+    messagingSenderId: '126223909088',
+    projectId: 'foodpanda-42a3a',
+    storageBucket: 'foodpanda-42a3a.firebasestorage.app',
+    iosBundleId: 'com.foodpanda',
   );
-
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyD1EllKK0-wDSPnZrKyrXIilXvDqtFBbKg',
-    appId: '1:381894296365:ios:9d6121a5065ca1f61389a4',
-    messagingSenderId: '381894296365',
-    projectId: 'titok-1c1a5',
-    storageBucket: 'titok-1c1a5.firebasestorage.app',
-    iosBundleId: 'com.example.foodpanda',
+    apiKey: 'AIzaSyBOeRuCk4wjxScYSWjWwrlViGNCDqkIDbU',
+    appId: '1:126223909088:ios:b05fb0358ced25758d9085',
+    messagingSenderId: '126223909088',
+    projectId: 'foodpanda-42a3a',
+    storageBucket: 'foodpanda-42a3a.firebasestorage.app',
+    iosBundleId: 'com.foodpanda',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyA03NIu3HlH18Lu5bvPMAlD2NY-LrcI-y4',
-    appId: '1:381894296365:web:6e40e8df68549b401389a4',
-    messagingSenderId: '381894296365',
-    projectId: 'titok-1c1a5',
-    authDomain: 'titok-1c1a5.firebaseapp.com',
-    storageBucket: 'titok-1c1a5.firebasestorage.app',
-    measurementId: 'G-8JJKB0XM1D',
+    apiKey: 'AIzaSyAg8sAF1fvtwSBQ1ad7fos_REEjTAAvDzg',
+    appId: '1:126223909088:web:ca5729b90b5c8ed68d9085',
+    messagingSenderId: '126223909088',
+    projectId: 'foodpanda-42a3a',
+    authDomain: 'foodpanda-42a3a.firebaseapp.com',
+    storageBucket: 'foodpanda-42a3a.firebasestorage.app',
+    measurementId: 'G-2N3GR7BBHL',
   );
 }
