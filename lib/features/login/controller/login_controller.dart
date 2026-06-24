@@ -62,7 +62,10 @@ class LoginController extends GetxController {
     }
   }
 
-  //apple sign in
+  void continueAsGuest() {
+    Get.offAllNamed(Routes.customerDashboard);
+  }
+
   Future<void> signInWithApple() async {
     try {
       isLoading.value = true;

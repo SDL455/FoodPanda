@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:foodpanda/features/login/controller/login_controller.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foodpanda/cores/widgets/login_background.dart';
 import 'package:foodpanda/cores/widgets/social_login_button.dart';
+import 'package:foodpanda/features/login/controller/login_controller.dart';
 import 'package:get/get.dart';
-import 'package:foodpanda/features/customer/views/customer_dashboard.dart';
 
 class LoginPage extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-
     return Scaffold(
       body: Stack(
         children: [
@@ -17,63 +15,55 @@ class LoginPage extends GetView<LoginController> {
           SafeArea(
             child: Center(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                padding: EdgeInsets.symmetric(horizontal: 24.w),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    SizedBox(height: size.height * 0.08),
+                    64.verticalSpace,
 
-                    // Brand / logo
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(12),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            shape: BoxShape.circle,
-                          ),
-                          child: Image.asset(
-                            'assets/image/background_icon.png',
-                            fit: BoxFit.contain,
-                            width: 52,
-                            height: 52,
-                          ),
-                        ),
-                        const SizedBox(width: 12),
-                        Text(
-                          'FoodPanda',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 34,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
+                    Image.asset(
+                      'assets/image/background_icon.png',
+                      width: 88.w,
+                      height: 88.h,
                     ),
 
-                    const SizedBox(height: 18),
+                    16.verticalSpace,
 
                     Text(
-                      'Hungry? Get food delivered from your favourite restaurants.',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white70, fontSize: 16),
+                      'FoodPanda',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 36.sp,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 1.2,
+                      ),
                     ),
 
-                    const SizedBox(height: 36),
+                    12.verticalSpace,
 
-                    // Card container for auth options
+                    Text(
+                      'Hungry? Get food delivered from\nyour favourite restaurants.',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.white.withOpacity(0.85),
+                        fontSize: 15.sp,
+                        height: 1.5,
+                      ),
+                    ),
+
+                    40.verticalSpace,
+
                     Container(
                       width: double.infinity,
-                      padding: const EdgeInsets.all(20),
+                      padding: EdgeInsets.all(24.r),
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(16),
+                        borderRadius: BorderRadius.circular(20.r),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black,
-                            blurRadius: 12,
-                            offset: Offset(0, 6),
+                            color: Colors.black.withOpacity(0.15),
+                            blurRadius: 30,
+                            offset: const Offset(0, 10),
                           ),
                         ],
                       ),
@@ -83,67 +73,124 @@ class LoginPage extends GetView<LoginController> {
                           Text(
                             'Welcome',
                             style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w600,
+                              fontSize: 22.sp,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.black87,
                             ),
                           ),
-                          const SizedBox(height: 8),
+                          4.verticalSpace,
                           Text(
                             'Sign in to continue',
-                            style: TextStyle(color: Colors.black54),
+                            style: TextStyle(
+                              fontSize: 14.sp,
+                              color: Colors.black45,
+                            ),
                           ),
-                          const SizedBox(height: 20),
+                          24.verticalSpace,
 
                           SocialLoginButton(
                             label: 'Continue with Google',
                             kind: SocialLoginKind.google,
-                            onPressed: () {
-                              controller.signInWithGoogle();
-                            },
+                            onPressed: controller.signInWithGoogle,
                           ),
 
-                          const SizedBox(height: 12),
+                          12.verticalSpace,
 
                           SocialLoginButton(
                             label: 'Continue with Apple',
                             kind: SocialLoginKind.apple,
-                            onPressed: () {
-                              controller.signInWithApple();
-                            },
+                            onPressed: controller.signInWithApple,
                           ),
 
-                          const SizedBox(height: 12),
+                          12.verticalSpace,
+
                           SocialLoginButton(
                             label: 'Continue with Facebook',
                             kind: SocialLoginKind.facebook,
-                            onPressed: () {
-                              controller.signInWithFacebook();
-                            },
+                            onPressed: controller.signInWithFacebook,
                           ),
 
-                          const SizedBox(height: 12),
-                          TextButton(
-                            style: TextButton.styleFrom(
-                              padding: EdgeInsets.symmetric(vertical: 14),
-                              backgroundColor: Colors.transparent,
-                              foregroundColor: Colors.pinkAccent,
-                              textStyle: TextStyle(fontSize: 16),
+                          12.verticalSpace,
+
+                          Obx(
+                            () => TextButton(
+                              style: TextButton.styleFrom(
+                                padding: EdgeInsets.symmetric(vertical: 14.h),
+                                foregroundColor: const Color(0xFFFF5A7D),
+                                textStyle: TextStyle(
+                                  fontSize: 15.sp,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12.r),
+                                  side: BorderSide(
+                                    color: const Color(0xFFFF5A7D).withOpacity(0.3),
+                                  ),
+                                ),
+                              ),
+                              onPressed: controller.isLoading.value
+                                  ? null
+                                  : controller.continueAsGuest,
+                              child: controller.isLoading.value
+                                  ? SizedBox(
+                                      height: 20.h,
+                                      width: 20.h,
+                                      child: CircularProgressIndicator(
+                                        strokeWidth: 2,
+                                        color: const Color(0xFFFF5A7D),
+                                      ),
+                                    )
+                                  : const Text('Continue as Guest'),
                             ),
-                            onPressed: () {
-                              // Continue as guest -> go to customer dashboard
-                              Get.offAll(() => CustomerHome());
-                            },
-                            child: Text('Continue as Guest'),
                           ),
                         ],
                       ),
                     ),
 
-                    SizedBox(height: size.height * 0.08),
+                    32.verticalSpace,
                   ],
                 ),
               ),
             ),
+          ),
+
+          Obx(
+            () => controller.isLoading.value
+                ? Container(
+                    color: Colors.black.withOpacity(0.3),
+                    child: Center(
+                      child: Container(
+                        padding: EdgeInsets.all(24.r),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(16.r),
+                        ),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            SizedBox(
+                              width: 48.w,
+                              height: 48.h,
+                              child: const CircularProgressIndicator(
+                                strokeWidth: 3,
+                                color: Color(0xFFFF5A7D),
+                              ),
+                            ),
+                            16.verticalSpace,
+                            Text(
+                              'Signing in...',
+                              style: TextStyle(
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black87,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  )
+                : const SizedBox.shrink(),
           ),
         ],
       ),
