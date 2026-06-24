@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:foodpanda/routes/app_routes.dart';
+import 'package:foodpanda/routes/routes.dart';
 
 class RoleSelectionScreen extends StatelessWidget {
   @override
@@ -52,7 +52,7 @@ class RoleSelectionScreen extends StatelessWidget {
                         subtitle: 'Manage platform operations',
                         icon: Icons.admin_panel_settings,
                         color: Colors.blue,
-                        onTap: () => Get.toNamed(AppRoutes.adminDashboard),
+                        onTap: () => Get.toNamed(Routes.adminDashboard),
                       ),
                       SizedBox(height: 20),
                       RoleCard(
@@ -60,7 +60,7 @@ class RoleSelectionScreen extends StatelessWidget {
                         subtitle: 'Order delicious food',
                         icon: Icons.person,
                         color: Colors.green,
-                        onTap: () => Get.toNamed(AppRoutes.customerDashboard),
+                        onTap: () => Get.toNamed(Routes.customerDashboard),
                       ),
                       SizedBox(height: 20),
                       RoleCard(
@@ -68,7 +68,7 @@ class RoleSelectionScreen extends StatelessWidget {
                         subtitle: 'Deliver food to customers',
                         icon: Icons.delivery_dining,
                         color: Colors.orange,
-                        onTap: () => Get.toNamed(AppRoutes.riderDashboard),
+                        onTap: () => Get.toNamed(Routes.riderDashboard),
                       ),
                     ],
                   ),
