@@ -1,4 +1,4 @@
 class AppConfig {
   static const String googleServerClientId =
-      '994888526488-3lhqjocmei1aa70sraugvup9tj51ar7t.apps.googleusercontent.com';
+      '126223909088-lcpjdjb8vtq5jps2ds87hp8uml2q62mn.apps.googleusercontent.com';
 }

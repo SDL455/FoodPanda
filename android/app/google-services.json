@@ -12,7 +12,20 @@
           "package_name": "com.foodpanda"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "126223909088-pkvq71t90bfj3tkbvoc7uaauv4uhutvp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.foodpanda",
+            "certificate_hash": "3ead04121bab39c5fbc40e286cad571611c32a25"
+          }
+        },
+        {
+          "client_id": "126223909088-p13f53kq0oil3k7vfc98ol1dbkq5k1bf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDJbunTkct8T-NTesKsoF9aWULzUcqxJBs"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "126223909088-lcpjdjb8vtq5jps2ds87hp8uml2q62mn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "126223909088-9tvaod5bau2d6n9jigqmnh46nluqrjv4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.foodpanda"
+              }
+            }
+          ]
         }
       }
     }
