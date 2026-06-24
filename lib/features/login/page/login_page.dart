@@ -70,7 +70,7 @@ class LoginPage extends GetView<LoginController> {
                         borderRadius: BorderRadius.circular(16),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.12),
+                            color: Colors.black,
                             blurRadius: 12,
                             offset: Offset(0, 6),
                           ),
@@ -97,7 +97,7 @@ class LoginPage extends GetView<LoginController> {
                             label: 'Continue with Google',
                             kind: SocialLoginKind.google,
                             onPressed: () {
-                              // controller.signInWithGoogle();
+                              controller.singInwithGoogle();
                             },
                           ),
 
@@ -107,7 +107,7 @@ class LoginPage extends GetView<LoginController> {
                             label: 'Continue with Apple',
                             kind: SocialLoginKind.apple,
                             onPressed: () {
-                              // controller.signInWithApple();
+                              controller.signInWithApple();
                             },
                           ),
 
@@ -116,7 +116,7 @@ class LoginPage extends GetView<LoginController> {
                             label: 'Continue with Facebook',
                             kind: SocialLoginKind.facebook,
                             onPressed: () {
-                              // controller.signInWithFacebook();
+                              controller.signInWithFacebook();
                             },
                           ),
 
