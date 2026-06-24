@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodpanda/features/login/controller/login_controller.dart';
-import 'package:foodpanda/features/login/widgets/login_background.dart';
-import 'package:foodpanda/features/login/widgets/social_login_button.dart';
+import 'package:foodpanda/cores/widgets/login_background.dart';
+import 'package:foodpanda/cores/widgets/social_login_button.dart';
 import 'package:get/get.dart';
 import 'package:foodpanda/features/customer/views/customer_dashboard.dart';
 
@@ -33,10 +33,11 @@ class LoginPage extends GetView<LoginController> {
                             color: Colors.white,
                             shape: BoxShape.circle,
                           ),
-                          child: Icon(
-                            Icons.fastfood,
-                            color: Colors.pinkAccent,
-                            size: 36,
+                          child: Image.asset(
+                            'assets/image/background_icon.png',
+                            fit: BoxFit.contain,
+                            width: 52,
+                            height: 52,
                           ),
                         ),
                         const SizedBox(width: 12),
@@ -97,7 +98,7 @@ class LoginPage extends GetView<LoginController> {
                             label: 'Continue with Google',
                             kind: SocialLoginKind.google,
                             onPressed: () {
-                              controller.singInwithGoogle();
+                              controller.signInWithGoogle();
                             },
                           ),
 

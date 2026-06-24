@@ -11,19 +11,17 @@ class LoginController extends GetxController {
   final FacebookLogin _facebookLogin = FacebookLogin();
 
   // Google Sign-In
-  Future<void> singInwithGoogle() async {
+  Future<void> signInWithGoogle() async {
     try {
       isLoading.value = true;
-      final user = await _googleSignIn.authenticate();
-      if (user != null) {
-        // Handle successful sign-in
-        Get.snackbar('Success', 'Google Sign-In successful');
-        Get.offAllNamed(
-          Routes.customerDashboard,
-        ); // Navigate to the customer dashboard
-        // print('Google Sign-In successful: ${user.displayName}');
-        // print('Email: ${user.email}');
-      }
+      await _googleSignIn.authenticate();
+      // Handle successful sign-in
+      Get.snackbar('Success', 'Google Sign-In successful');
+      Get.offAllNamed(
+        Routes.customerDashboard,
+      ); // Navigate to the customer dashboard
+      // print('Google Sign-In successful: ${user.displayName}');
+      // print('Email: ${user.email}');
     } catch (e) {
       Get.snackbar('Error', e.toString());
     } finally {
