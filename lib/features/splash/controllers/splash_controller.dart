@@ -11,8 +11,7 @@ class SplashController extends GetxController {
   @override
   void onReady() {
     super.onReady();
-    Future.delayed(const Duration(seconds: 2), () {
-      // Get.offNamed(Routes.login);
+    Future.delayed(const Duration(seconds: 3), () {
       final user = FirebaseAuth.instance.currentUser;
       if (user != null) {
         Get.offAllNamed(Routes.customerDashboard);

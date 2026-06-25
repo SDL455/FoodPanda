@@ -12,7 +12,7 @@ class LoginController extends GetxController {
     try {
       isLoading.value = true;
       await _authService.signInWithGoogle();
-      Get.snackbar('Success', 'Google Sign-In successful');
+      // Get.snackbar('Success', 'Google Sign-In successful');
       Get.offAllNamed(Routes.customerDashboard);
     } catch (e) {
       Get.snackbar('Error', e.toString());
