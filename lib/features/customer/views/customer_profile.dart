@@ -4,35 +4,34 @@ import 'package:foodpanda/features/rider/views/widgets/profile_menu_item.dart';
 import 'package:foodpanda/routes/routes.dart';
 import 'package:get/get.dart';
 
-/// Updated `CustomerProfile` screen that navigates to dedicated pages for each
-/// menu item. Each destination page contains a clean, modern UI scaffold that
-/// you can further extend with real data or business logic.
 class CustomerProfile extends StatelessWidget {
-  const CustomerProfile({super.key});
+  final user = FirebaseAuth.instance.currentUser;
+
+  CustomerProfile({super.key});
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.all(16),
         child: Column(
           children: [
-            const CircleAvatar(
+            CircleAvatar(
               radius: 50,
-              backgroundImage: NetworkImage(
-                'https://images.immediate.co.uk/production/volatile/sites/30/2023/06/Ultraprocessed-food-58d54c3.jpg?quality=90&webp=true&resize=440,400',
-              ),
+              backgroundImage: user?.photoURL != null
+                  ? NetworkImage(user!.photoURL!)
+                  : null,
+              child: user?.photoURL == null
+                  ? Icon(Icons.person, size: 50)
+                  : null,
             ),
-            const SizedBox(height: 16),
-            const Text(
-              'John Doe',
+            SizedBox(height: 16),
+            Text(
+              user?.displayName ?? '',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
-            const Text(
-              'john.doe@email.com',
-              style: TextStyle(color: Colors.grey),
-            ),
-            const SizedBox(height: 30),
+            Text(user?.email ?? '', style: TextStyle(color: Colors.grey)),
+            SizedBox(height: 30),
             Expanded(
               child: ListView(
                 children: [
@@ -102,10 +101,6 @@ class CustomerProfile extends StatelessWidget {
   }
 }
 
-//───────────────────────────────────────────────────────────────────────────────
-//  ADDRESSES PAGE
-//───────────────────────────────────────────────────────────────────────────────
-
 class AddressesPage extends StatelessWidget {
   const AddressesPage({super.key});
 
@@ -136,10 +131,6 @@ class AddressesPage extends StatelessWidget {
     );
   }
 }
-
-//───────────────────────────────────────────────────────────────────────────────
-//  PAYMENT METHODS PAGE
-//───────────────────────────────────────────────────────────────────────────────
 
 class PaymentMethodsPage extends StatelessWidget {
   const PaymentMethodsPage({super.key});
@@ -191,10 +182,6 @@ class PaymentMethodsPage extends StatelessWidget {
   }
 }
 
-//───────────────────────────────────────────────────────────────────────────────
-//  NOTIFICATIONS PAGE
-//───────────────────────────────────────────────────────────────────────────────
-
 class NotificationsPage extends StatefulWidget {
   const NotificationsPage({super.key});
 
@@ -237,10 +224,6 @@ class _NotificationsPageState extends State<NotificationsPage> {
   }
 }
 
-//───────────────────────────────────────────────────────────────────────────────
-//  HELP & SUPPORT PAGE
-//───────────────────────────────────────────────────────────────────────────────
-
 class HelpSupportPage extends StatelessWidget {
   const HelpSupportPage({super.key});
 
@@ -264,16 +247,10 @@ class HelpSupportPage extends StatelessWidget {
     child: ListTile(
       title: Text(question),
       trailing: const Icon(Icons.chevron_right),
-      onTap: () {
-        // TODO: navigate to FAQ detail or open a webview
-      },
+      onTap: () {},
     ),
   );
 }
-
-//───────────────────────────────────────────────────────────────────────────────
-//  SETTINGS PAGE
-//───────────────────────────────────────────────────────────────────────────────
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -302,9 +279,7 @@ class SettingsPage extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {
-                  // TODO: save settings
-                },
+                onPressed: () {},
                 child: const Text('Save Changes'),
               ),
             ),

@@ -35,7 +35,17 @@ class AuthService extends GetxService {
 
         final credential = FacebookAuthProvider.credential(accessToken.token);
 
-        return await _auth.signInWithCredential(credential);
+        final userCredential = await _auth.signInWithCredential(credential);
+
+        print("========= FACEBOOK =========");
+        print("UID      : ${userCredential.user?.uid}");
+        print("Name     : ${userCredential.user?.displayName}");
+        print("Email    : ${userCredential.user?.email}");
+        print("Photo    : ${userCredential.user?.photoURL}");
+        print("Provider : ${userCredential.user?.providerData}");
+        print("============================");
+
+        return userCredential;
 
       case FacebookLoginStatus.cancel:
         return null;
