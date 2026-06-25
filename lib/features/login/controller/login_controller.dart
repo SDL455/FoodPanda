@@ -35,6 +35,7 @@ class LoginController extends GetxController {
             'Success',
             'Facebook Sign-In successful: ${accessToken?.userId}',
           );
+          Get.offAllNamed(Routes.customerDashboard);
           break;
         case FacebookLoginStatus.cancel:
           Get.snackbar('Info', 'Facebook Sign-In cancelled by user.');

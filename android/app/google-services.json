@@ -7,17 +7,17 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:126223909088:android:d34ad691876067108d9085",
+        "mobilesdk_app_id": "1:126223909088:android:e181efd00da678b88d9085",
         "android_client_info": {
-          "package_name": "com.foodpanda"
+          "package_name": "com.facebook.katana"
         }
       },
       "oauth_client": [
         {
-          "client_id": "126223909088-pkvq71t90bfj3tkbvoc7uaauv4uhutvp.apps.googleusercontent.com",
+          "client_id": "126223909088-na58vs929he5c76ejkma9dpgg2ut62p1.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.foodpanda",
+            "package_name": "com.facebook.katana",
             "certificate_hash": "3ead04121bab39c5fbc40e286cad571611c32a25"
           }
         },
@@ -39,10 +39,10 @@
               "client_type": 3
             },
             {
-              "client_id": "126223909088-9tvaod5bau2d6n9jigqmnh46nluqrjv4.apps.googleusercontent.com",
+              "client_id": "126223909088-7pfmual79bc5nl20j8dtl0kn9triu3kh.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.foodpanda"
+                "bundle_id": "com.facebook.katana"
               }
             }
           ]

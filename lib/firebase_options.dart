@@ -52,18 +52,20 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDJbunTkct8T-NTesKsoF9aWULzUcqxJBs',
-    appId: '1:126223909088:android:d34ad691876067108d9085',
+    appId: '1:126223909088:android:e181efd00da678b88d9085',
     messagingSenderId: '126223909088',
     projectId: 'foodpanda-42a3a',
     storageBucket: 'foodpanda-42a3a.firebasestorage.app',
   );
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyBOeRuCk4wjxScYSWjWwrlViGNCDqkIDbU',
-    appId: '1:126223909088:ios:b05fb0358ced25758d9085',
+    appId: '1:126223909088:ios:edd8fe48d97dfb5c8d9085',
     messagingSenderId: '126223909088',
     projectId: 'foodpanda-42a3a',
     storageBucket: 'foodpanda-42a3a.firebasestorage.app',
-    iosBundleId: 'com.foodpanda',
+    androidClientId: '126223909088-pkvq71t90bfj3tkbvoc7uaauv4uhutvp.apps.googleusercontent.com',
+    iosClientId: '126223909088-7pfmual79bc5nl20j8dtl0kn9triu3kh.apps.googleusercontent.com',
+    iosBundleId: 'com.facebook.katana',
   );
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyBOeRuCk4wjxScYSWjWwrlViGNCDqkIDbU',
@@ -71,7 +73,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '126223909088',
     projectId: 'foodpanda-42a3a',
     storageBucket: 'foodpanda-42a3a.firebasestorage.app',
-    iosBundleId: 'com.foodpanda',
+    iosBundleId: 'com.facebook.katana',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
