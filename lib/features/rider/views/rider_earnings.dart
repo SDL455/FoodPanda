@@ -84,7 +84,7 @@ class RiderEarnings extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return ListTile(
                     leading: CircleAvatar(
-                      backgroundColor: Colors.green.withOpacity(0.1),
+                      backgroundColor: Colors.green.withValues(alpha: 0.1),
                       child: Icon(Icons.attach_money, color: Colors.green),
                     ),
                     title: Text('Order #${1000 + index}'),

@@ -147,7 +147,7 @@ class ActivityTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: CircleAvatar(
-        backgroundColor: Colors.blue.withOpacity(0.1),
+        backgroundColor: Colors.blue.withValues(alpha: 0.1),
         child: Icon(icon, color: Colors.blue),
       ),
       title: Text(title),

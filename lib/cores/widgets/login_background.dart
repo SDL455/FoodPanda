@@ -22,7 +22,7 @@ class LoginBackground extends StatelessWidget {
               width: 220,
               height: 220,
               decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.06),
+                color: Colors.white.withValues(alpha: 0.06),
                 borderRadius: BorderRadius.circular(110),
               ),
             ),
@@ -34,7 +34,7 @@ class LoginBackground extends StatelessWidget {
               width: 140,
               height: 140,
               decoration: BoxDecoration(
-                color: Colors.black.withOpacity(0.05),
+                color: Colors.black.withValues(alpha: 0.05),
                 borderRadius: BorderRadius.circular(70),
               ),
             ),

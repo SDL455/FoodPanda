@@ -1,27 +1,19 @@
 import 'package:flutter_login_facebook/flutter_login_facebook.dart'
-    show FacebookLogin, FacebookPermission, FacebookLoginStatus;
+    show FacebookLoginStatus;
+import 'package:foodpanda/cores/services/auth_service.dart';
 import 'package:foodpanda/routes/routes.dart';
 import 'package:get/get.dart';
-import 'package:google_sign_in/google_sign_in.dart' show GoogleSignIn;
-import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class LoginController extends GetxController {
   final isLoading = false.obs;
-  final GoogleSignIn _googleSignIn = GoogleSignIn.instance;
-  final FacebookLogin _facebookLogin = FacebookLogin();
+  final AuthService _authService = Get.find<AuthService>();
 
-  // Google Sign-In
   Future<void> signInWithGoogle() async {
     try {
       isLoading.value = true;
-      await _googleSignIn.authenticate();
-      // Handle successful sign-in
+      await _authService.signInWithGoogle();
       Get.snackbar('Success', 'Google Sign-In successful');
-      Get.offAllNamed(
-        Routes.customerDashboard,
-      ); // Navigate to the customer dashboard
-      // print('Google Sign-In successful: ${user.displayName}');
-      // print('Email: ${user.email}');
+      Get.offAllNamed(Routes.customerDashboard);
     } catch (e) {
       Get.snackbar('Error', e.toString());
     } finally {
@@ -29,16 +21,12 @@ class LoginController extends GetxController {
     }
   }
 
-  // Facebook Sign-In
   Future<void> signInWithFacebook() async {
     try {
       isLoading.value = true;
-      final result = await _facebookLogin.logIn(
-        permissions: [
-          FacebookPermission.publicProfile,
-          FacebookPermission.email,
-        ],
-      );
+      final result = await _authService.signInWithFacebook();
+
+      if (result == null) return;
 
       switch (result.status) {
         case FacebookLoginStatus.success:
@@ -69,13 +57,7 @@ class LoginController extends GetxController {
   Future<void> signInWithApple() async {
     try {
       isLoading.value = true;
-      // Implement your Apple sign-in logic here
-      final credentials = await SignInWithApple.getAppleIDCredential(
-        scopes: [
-          AppleIDAuthorizationScopes.email,
-          AppleIDAuthorizationScopes.fullName,
-        ],
-      );
+      final credentials = await _authService.signInWithApple();
 
       Get.snackbar(
         'Success',

@@ -30,7 +30,7 @@ class AdminOrders extends StatelessWidget {
                   margin: EdgeInsets.symmetric(vertical: 4),
                   child: ListTile(
                     leading: CircleAvatar(
-                      backgroundColor: statusColor.withOpacity(0.1),
+                      backgroundColor: statusColor.withValues(alpha: 0.1),
                       child: Text(
                         '#${1000 + index}',
                         style: TextStyle(fontSize: 10),
@@ -43,7 +43,7 @@ class AdminOrders extends StatelessWidget {
                     trailing: Container(
                       padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
-                        color: statusColor.withOpacity(0.1),
+                        color: statusColor.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Text(

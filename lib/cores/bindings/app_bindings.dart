@@ -1,3 +1,4 @@
+import 'package:foodpanda/cores/services/auth_service.dart';
 import 'package:foodpanda/features/admin/controllers/admin_controller.dart';
 import 'package:foodpanda/features/customer/controllers/customer_controller.dart';
 import 'package:foodpanda/features/login/controller/login_controller.dart';
@@ -11,5 +12,6 @@ class AppBinding implements Bindings {
     Get.lazyPut<LoginController>(() => LoginController());
     Get.lazyPut<AdminController>(() => AdminController());
     Get.lazyPut<CustomerController>(() => CustomerController());
+    Get.put(AuthService());
   }
 }

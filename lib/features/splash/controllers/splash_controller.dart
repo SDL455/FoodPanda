@@ -1,4 +1,5 @@
 import 'package:foodpanda/routes/routes.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 class SplashController extends GetxController {
@@ -11,7 +12,13 @@ class SplashController extends GetxController {
   void onReady() {
     super.onReady();
     Future.delayed(const Duration(seconds: 2), () {
-      Get.offNamed(Routes.login);
+      // Get.offNamed(Routes.login);
+      final user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        Get.offAllNamed(Routes.customerDashboard);
+      } else {
+        Get.offAllNamed(Routes.login);
+      }
     });
   }
 }

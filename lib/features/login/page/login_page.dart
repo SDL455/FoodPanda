@@ -45,7 +45,7 @@ class LoginPage extends GetView<LoginController> {
                       'Hungry? Get food delivered from\nyour favourite restaurants.',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: Colors.white.withOpacity(0.85),
+                        color: Colors.white.withValues(alpha: 0.85),
                         fontSize: 15.sp,
                         height: 1.5,
                       ),
@@ -61,7 +61,7 @@ class LoginPage extends GetView<LoginController> {
                         borderRadius: BorderRadius.circular(20.r),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.15),
+                            color: Colors.black.withValues(alpha: 0.15),
                             blurRadius: 30,
                             offset: const Offset(0, 10),
                           ),
@@ -124,7 +124,7 @@ class LoginPage extends GetView<LoginController> {
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(12.r),
                                   side: BorderSide(
-                                    color: const Color(0xFFFF5A7D).withOpacity(0.3),
+                                    color: const Color(0xFFFF5A7D).withValues(alpha: 0.3),
                                   ),
                                 ),
                               ),
@@ -157,7 +157,7 @@ class LoginPage extends GetView<LoginController> {
           Obx(
             () => controller.isLoading.value
                 ? Container(
-                    color: Colors.black.withOpacity(0.3),
+                    color: Colors.black.withValues(alpha: 0.3),
                     child: Center(
                       child: Container(
                         padding: EdgeInsets.all(24.r),

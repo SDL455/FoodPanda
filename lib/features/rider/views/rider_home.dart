@@ -60,7 +60,7 @@ class _RiderHomeState extends State<RiderHome> {
                         boxShadow: [
                           BoxShadow(
                             color: (_isOnline ? Colors.green : Colors.grey)
-                                .withOpacity(0.3),
+                                .withValues(alpha: 0.3),
                             spreadRadius: 5,
                             blurRadius: 10,
                           ),
