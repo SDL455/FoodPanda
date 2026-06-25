@@ -20,12 +20,36 @@ class AuthService extends GetxService {
     return await _auth.signInWithCredential(credential);
   }
 
-  Future<FacebookLoginResult?> signInWithFacebook() async {
+  Future<UserCredential?> signInWithFacebook() async {
     final result = await _facebookLogin.logIn(
       permissions: [FacebookPermission.publicProfile, FacebookPermission.email],
     );
-    return result;
+
+    switch (result.status) {
+      case FacebookLoginStatus.success:
+        final accessToken = result.accessToken;
+
+        if (accessToken == null) {
+          throw Exception("Facebook access token is null");
+        }
+
+        final credential = FacebookAuthProvider.credential(accessToken.token);
+
+        return await _auth.signInWithCredential(credential);
+
+      case FacebookLoginStatus.cancel:
+        return null;
+
+      case FacebookLoginStatus.error:
+        throw Exception(result.error);
+    }
   }
+  // Future<FacebookLoginResult?> signInWithFacebook() async {
+  //   final result = await _facebookLogin.logIn(
+  //     permissions: [FacebookPermission.publicProfile, FacebookPermission.email],
+  //   );
+  //   return result;
+  // }
 
   Future<AuthorizationCredentialAppleID> signInWithApple() async {
     final credentials = await SignInWithApple.getAppleIDCredential(

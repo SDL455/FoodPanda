@@ -1,5 +1,3 @@
-import 'package:flutter_login_facebook/flutter_login_facebook.dart'
-    show FacebookLoginStatus;
 import 'package:foodpanda/cores/services/auth_service.dart';
 import 'package:foodpanda/routes/routes.dart';
 import 'package:get/get.dart';
@@ -24,32 +22,49 @@ class LoginController extends GetxController {
   Future<void> signInWithFacebook() async {
     try {
       isLoading.value = true;
-      final result = await _authService.signInWithFacebook();
 
-      if (result == null) return;
+      final userCredential = await _authService.signInWithFacebook();
 
-      switch (result.status) {
-        case FacebookLoginStatus.success:
-          final accessToken = result.accessToken;
-          Get.snackbar(
-            'Success',
-            'Facebook Sign-In successful: ${accessToken?.userId}',
-          );
-          Get.offAllNamed(Routes.customerDashboard);
-          break;
-        case FacebookLoginStatus.cancel:
-          Get.snackbar('Info', 'Facebook Sign-In cancelled by user.');
-          break;
-        case FacebookLoginStatus.error:
-          Get.snackbar('Error', 'Facebook Sign-In error: ${result.error}');
-          break;
+      if (userCredential == null) {
+        return;
       }
+
+      Get.offAllNamed(Routes.customerDashboard);
     } catch (e) {
       Get.snackbar('Error', e.toString());
     } finally {
       isLoading.value = false;
     }
   }
+  // Future<void> signInWithFacebook() async {
+  //   try {
+  //     isLoading.value = true;
+  //     final result = await _authService.signInWithFacebook();
+
+  //     if (result == null) return;
+
+  //     switch (result.status) {
+  //       case FacebookLoginStatus.success:
+  //         final accessToken = result.accessToken;
+  //         Get.snackbar(
+  //           'Success',
+  //           'Facebook Sign-In successful: ${accessToken?.userId}',
+  //         );
+  //         Get.offAllNamed(Routes.customerDashboard);
+  //         break;
+  //       case FacebookLoginStatus.cancel:
+  //         Get.snackbar('Info', 'Facebook Sign-In cancelled by user.');
+  //         break;
+  //       case FacebookLoginStatus.error:
+  //         Get.snackbar('Error', 'Facebook Sign-In error: ${result.error}');
+  //         break;
+  //     }
+  //   } catch (e) {
+  //     Get.snackbar('Error', e.toString());
+  //   } finally {
+  //     isLoading.value = false;
+  //   }
+  // }
 
   void continueAsGuest() {
     Get.offAllNamed(Routes.customerDashboard);

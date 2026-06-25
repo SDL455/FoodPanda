@@ -1,1 +1,22 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"foodpanda-42a3a","appId":"1:126223909088:android:e181efd00da678b88d9085","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"foodpanda-42a3a","configurations":{"android":"1:126223909088:android:e181efd00da678b88d9085","ios":"1:126223909088:ios:edd8fe48d97dfb5c8d9085"}}}}}}
+{
+    "flutter": {
+        "platforms": {
+            "android": {
+                "default": {
+                    "projectId": "foodpanda-42a3a",
+                    "appId": "1:126223909088:android:e181efd00da678b88d9085",
+                    "fileOutput": "android/app/google-services.json"
+                }
+            },
+            "dart": {
+                "lib/firebase_options.dart": {
+                    "projectId": "foodpanda-42a3a",
+                    "configurations": {
+                        "android": "1:126223909088:android:e181efd00da678b88d9085",
+                        "ios": "1:126223909088:ios:edd8fe48d97dfb5c8d9085"
+                    }
+                }
+            }
+        }
+    }
+}
