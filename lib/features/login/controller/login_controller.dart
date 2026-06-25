@@ -10,7 +10,7 @@ class LoginController extends GetxController {
     try {
       isLoading.value = true;
       await _authService.signInWithGoogle();
-      // Get.snackbar('Success', 'Google Sign-In successful');
+
       Get.offAllNamed(Routes.customerDashboard);
     } catch (e) {
       Get.snackbar('Error', e.toString());
@@ -36,35 +36,6 @@ class LoginController extends GetxController {
       isLoading.value = false;
     }
   }
-  // Future<void> signInWithFacebook() async {
-  //   try {
-  //     isLoading.value = true;
-  //     final result = await _authService.signInWithFacebook();
-
-  //     if (result == null) return;
-
-  //     switch (result.status) {
-  //       case FacebookLoginStatus.success:
-  //         final accessToken = result.accessToken;
-  //         Get.snackbar(
-  //           'Success',
-  //           'Facebook Sign-In successful: ${accessToken?.userId}',
-  //         );
-  //         Get.offAllNamed(Routes.customerDashboard);
-  //         break;
-  //       case FacebookLoginStatus.cancel:
-  //         Get.snackbar('Info', 'Facebook Sign-In cancelled by user.');
-  //         break;
-  //       case FacebookLoginStatus.error:
-  //         Get.snackbar('Error', 'Facebook Sign-In error: ${result.error}');
-  //         break;
-  //     }
-  //   } catch (e) {
-  //     Get.snackbar('Error', e.toString());
-  //   } finally {
-  //     isLoading.value = false;
-  //   }
-  // }
 
   void continueAsGuest() {
     Get.offAllNamed(Routes.customerDashboard);

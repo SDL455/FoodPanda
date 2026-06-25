@@ -44,12 +44,6 @@ class AuthService extends GetxService {
         throw Exception(result.error);
     }
   }
-  // Future<FacebookLoginResult?> signInWithFacebook() async {
-  //   final result = await _facebookLogin.logIn(
-  //     permissions: [FacebookPermission.publicProfile, FacebookPermission.email],
-  //   );
-  //   return result;
-  // }
 
   Future<AuthorizationCredentialAppleID> signInWithApple() async {
     final credentials = await SignInWithApple.getAppleIDCredential(
