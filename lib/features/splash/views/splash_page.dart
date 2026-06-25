@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:foodpanda/cores/themes/app_colors.dart';
+import 'package:foodpanda/cores/themes/app_text_styles.dart';
+import 'package:foodpanda/cores/widgets/animated_fade_slide.dart';
+import 'package:foodpanda/cores/widgets/animated_slide_up.dart';
+import 'package:foodpanda/cores/widgets/bob_mascot.dart';
 import 'package:foodpanda/features/splash/controllers/splash_controller.dart';
 import 'package:get/get.dart';
 
@@ -9,7 +14,7 @@ class SplashPage extends GetView<SplashController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFF2B85),
+      backgroundColor: AppColors.pink,
       body: Stack(
         children: [
           // ── Pink gradient background ──────────────────────────────
@@ -18,7 +23,7 @@ class SplashPage extends GetView<SplashController> {
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: [Color(0xFFFF2B85), Color(0xFFE0006E)],
+                colors: [AppColors.pink, AppColors.pinkDeep],
               ),
             ),
           ),
@@ -50,49 +55,42 @@ class SplashPage extends GetView<SplashController> {
                       SizedBox(height: 32.h),
 
                       // Logo icon
-                      _AnimatedFade(
+                      AnimatedFadeSlide(
                         delay: const Duration(milliseconds: 0),
-                        child: _PandaLogoIcon(),
+                        child: const PandaLogoIcon(size: 72),
                       ),
 
                       SizedBox(height: 16.h),
 
                       // App name
-                      _AnimatedFade(
+                      AnimatedFadeSlide(
                         delay: const Duration(milliseconds: 150),
                         child: Text(
                           'foodpanda',
-                          style: TextStyle(
-                            fontSize: 38.sp,
-                            fontWeight: FontWeight.w800,
-                            color: Colors.white,
-                            letterSpacing: -0.5,
-                          ),
+                          style: AppTextStyles.appName(fontSize: 38),
                         ),
                       ),
 
                       SizedBox(height: 6.h),
 
                       // Tagline
-                      _AnimatedFade(
+                      AnimatedFadeSlide(
                         delay: const Duration(milliseconds: 250),
                         child: Text(
                           'good food, delivered fast',
-                          style: TextStyle(
-                            fontSize: 15.sp,
-                            color: Colors.white.withValues(alpha: 0.9),
-                            fontWeight: FontWeight.w400,
-                            letterSpacing: 0.2,
+                          style: AppTextStyles.tagline(
+                            fontSize: 15,
+                            opacity: 0.9,
                           ),
                         ),
                       ),
 
                       SizedBox(height: 24.h),
 
-                      // Panda delivery mascot (background_icon.png)
-                      _AnimatedFade(
+                      // Panda delivery mascot
+                      AnimatedFadeSlide(
                         delay: const Duration(milliseconds: 350),
-                        child: _AnimatedMascot(),
+                        child: const BobMascot(height: 270),
                       ),
                     ],
                   ),
@@ -100,9 +98,9 @@ class SplashPage extends GetView<SplashController> {
               ),
 
               // Bottom white card
-              _AnimatedSlideUp(
+              AnimatedSlideUp(
                 delay: const Duration(milliseconds: 400),
-                child: _BottomCard(),
+                child: const _BottomCard(),
               ),
             ],
           ),
@@ -113,170 +111,11 @@ class SplashPage extends GetView<SplashController> {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Panda Logo Icon (white circle with panda face drawn in Flutter)
-// ─────────────────────────────────────────────────────────────────────────────
-class _PandaLogoIcon extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 72.w,
-      height: 72.w,
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        shape: BoxShape.circle,
-      ),
-      child: Center(
-        child: CustomPaint(
-          size: Size(44.w, 44.w),
-          painter: _PandaFacePainter(),
-        ),
-      ),
-    );
-  }
-}
-
-class _PandaFacePainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final w = size.width;
-    final h = size.height;
-    final pink = const Color(0xFFFF2B85);
-    final black = Colors.black;
-
-    // Main face circle (pink)
-    canvas.drawCircle(Offset(w / 2, h / 2), w / 2, Paint()..color = pink);
-
-    // Left ear (black)
-    canvas.drawCircle(
-      Offset(w * 0.18, h * 0.18),
-      w * 0.14,
-      Paint()..color = black,
-    );
-    // Right ear (black)
-    canvas.drawCircle(
-      Offset(w * 0.82, h * 0.18),
-      w * 0.14,
-      Paint()..color = black,
-    );
-
-    // Face white inner circle
-    canvas.drawCircle(
-      Offset(w / 2, h / 2 + h * 0.04),
-      w * 0.36,
-      Paint()..color = Colors.white,
-    );
-
-    // Left eye patch (black)
-    canvas.drawOval(
-      Rect.fromCenter(
-        center: Offset(w * 0.35, h * 0.42),
-        width: w * 0.18,
-        height: h * 0.16,
-      ),
-      Paint()..color = black,
-    );
-    // Right eye patch (black)
-    canvas.drawOval(
-      Rect.fromCenter(
-        center: Offset(w * 0.65, h * 0.42),
-        width: w * 0.18,
-        height: h * 0.16,
-      ),
-      Paint()..color = black,
-    );
-
-    // Left eye white
-    canvas.drawCircle(
-      Offset(w * 0.35, h * 0.41),
-      w * 0.06,
-      Paint()..color = Colors.white,
-    );
-    // Right eye white
-    canvas.drawCircle(
-      Offset(w * 0.65, h * 0.41),
-      w * 0.06,
-      Paint()..color = Colors.white,
-    );
-
-    // Nose
-    canvas.drawOval(
-      Rect.fromCenter(
-        center: Offset(w / 2, h * 0.58),
-        width: w * 0.12,
-        height: h * 0.07,
-      ),
-      Paint()..color = black,
-    );
-
-    // Smile
-    final smilePath = Path()
-      ..moveTo(w * 0.38, h * 0.65)
-      ..quadraticBezierTo(w / 2, h * 0.75, w * 0.62, h * 0.65);
-    canvas.drawPath(
-      smilePath,
-      Paint()
-        ..color = black
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = w * 0.03
-        ..strokeCap = StrokeCap.round,
-    );
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Animated mascot — uses the existing background_icon.png asset
-// ─────────────────────────────────────────────────────────────────────────────
-class _AnimatedMascot extends StatefulWidget {
-  @override
-  State<_AnimatedMascot> createState() => _AnimatedMascotState();
-}
-
-class _AnimatedMascotState extends State<_AnimatedMascot>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _ctrl;
-  late Animation<double> _bob;
-
-  @override
-  void initState() {
-    super.initState();
-    _ctrl = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 1800),
-    )..repeat(reverse: true);
-    _bob = Tween<double>(
-      begin: -6,
-      end: 6,
-    ).animate(CurvedAnimation(parent: _ctrl, curve: Curves.easeInOut));
-  }
-
-  @override
-  void dispose() {
-    _ctrl.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _bob,
-      builder: (_, child) =>
-          Transform.translate(offset: Offset(0, _bob.value), child: child),
-      child: Image.asset(
-        'assets/image/background_icon.png',
-        height: 270.h,
-        fit: BoxFit.contain,
-      ),
-    );
-  }
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Bottom white card
+// Bottom white card (splash-specific content)
 // ─────────────────────────────────────────────────────────────────────────────
 class _BottomCard extends StatelessWidget {
+  const _BottomCard();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -296,18 +135,13 @@ class _BottomCard extends StatelessWidget {
           RichText(
             textAlign: TextAlign.center,
             text: TextSpan(
-              style: TextStyle(
-                fontSize: 22.sp,
-                fontWeight: FontWeight.w800,
-                color: const Color(0xFF1A1A2E),
-                height: 1.35,
-              ),
+              style: AppTextStyles.heroHeadline(),
               children: const [
                 TextSpan(text: 'Your favorite food,\n'),
                 TextSpan(text: 'delivered '),
                 TextSpan(
                   text: 'to your door',
-                  style: TextStyle(color: Color(0xFFFF2B85)),
+                  style: TextStyle(color: AppColors.pink),
                 ),
               ],
             ),
@@ -319,16 +153,12 @@ class _BottomCard extends StatelessWidget {
           Text(
             'From local favorites to all your cravings.',
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 13.sp,
-              color: const Color(0xFF888888),
-              fontWeight: FontWeight.w400,
-            ),
+            style: AppTextStyles.subTagline(),
           ),
 
           SizedBox(height: 20.h),
 
-          // Page indicator dot
+          // Page indicator dots
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -345,6 +175,9 @@ class _BottomCard extends StatelessWidget {
   }
 }
 
+// ─────────────────────────────────────────────────────────────────────────────
+// Page indicator dot (splash-specific)
+// ─────────────────────────────────────────────────────────────────────────────
 class _Dot extends StatelessWidget {
   final bool active;
   const _Dot({required this.active});
@@ -357,8 +190,8 @@ class _Dot extends StatelessWidget {
       height: 6.h,
       decoration: BoxDecoration(
         color: active
-            ? const Color(0xFFFF2B85)
-            : const Color(0xFFFF2B85).withValues(alpha: 0.25),
+            ? AppColors.pink
+            : AppColors.pink.withValues(alpha: 0.25),
         borderRadius: BorderRadius.circular(4.r),
       ),
     );
@@ -366,7 +199,7 @@ class _Dot extends StatelessWidget {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// City skyline decorative painter
+// City skyline decorative painter (splash-specific)
 // ─────────────────────────────────────────────────────────────────────────────
 class _CitySkylinePainter extends CustomPainter {
   @override
@@ -378,7 +211,6 @@ class _CitySkylinePainter extends CustomPainter {
     final path = Path();
     path.moveTo(0, h);
 
-    // Simple building silhouettes
     void building(double x, double bw, double bh) {
       path.lineTo(x, h);
       path.lineTo(x, h - bh);
@@ -411,109 +243,4 @@ class _CitySkylinePainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Animation helpers
-// ─────────────────────────────────────────────────────────────────────────────
-class _AnimatedFade extends StatefulWidget {
-  final Widget child;
-  final Duration delay;
-  const _AnimatedFade({required this.child, required this.delay});
-
-  @override
-  State<_AnimatedFade> createState() => _AnimatedFadeState();
-}
-
-class _AnimatedFadeState extends State<_AnimatedFade>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _ctrl;
-  late Animation<double> _opacity;
-  late Animation<Offset> _slide;
-
-  @override
-  void initState() {
-    super.initState();
-    _ctrl = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 600),
-    );
-    _opacity = Tween<double>(
-      begin: 0,
-      end: 1,
-    ).animate(CurvedAnimation(parent: _ctrl, curve: Curves.easeOut));
-    _slide = Tween<Offset>(
-      begin: const Offset(0, 0.25),
-      end: Offset.zero,
-    ).animate(CurvedAnimation(parent: _ctrl, curve: Curves.easeOut));
-
-    Future.delayed(widget.delay, () {
-      if (mounted) _ctrl.forward();
-    });
-  }
-
-  @override
-  void dispose() {
-    _ctrl.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return FadeTransition(
-      opacity: _opacity,
-      child: SlideTransition(position: _slide, child: widget.child),
-    );
-  }
-}
-
-class _AnimatedSlideUp extends StatefulWidget {
-  final Widget child;
-  final Duration delay;
-  const _AnimatedSlideUp({required this.child, required this.delay});
-
-  @override
-  State<_AnimatedSlideUp> createState() => _AnimatedSlideUpState();
-}
-
-class _AnimatedSlideUpState extends State<_AnimatedSlideUp>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _ctrl;
-  late Animation<Offset> _slide;
-  late Animation<double> _opacity;
-
-  @override
-  void initState() {
-    super.initState();
-    _ctrl = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 700),
-    );
-    _slide = Tween<Offset>(
-      begin: const Offset(0, 1),
-      end: Offset.zero,
-    ).animate(CurvedAnimation(parent: _ctrl, curve: Curves.easeOutCubic));
-    _opacity = Tween<double>(
-      begin: 0,
-      end: 1,
-    ).animate(CurvedAnimation(parent: _ctrl, curve: Curves.easeOut));
-
-    Future.delayed(widget.delay, () {
-      if (mounted) _ctrl.forward();
-    });
-  }
-
-  @override
-  void dispose() {
-    _ctrl.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return FadeTransition(
-      opacity: _opacity,
-      child: SlideTransition(position: _slide, child: widget.child),
-    );
-  }
 }
