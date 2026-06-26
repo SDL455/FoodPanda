@@ -5,11 +5,11 @@ import 'package:foodpanda/cores/themes/app_text_styles.dart';
 import 'package:foodpanda/cores/widgets/animated_fade_slide.dart';
 import 'package:foodpanda/cores/widgets/animated_slide_up.dart';
 import 'package:foodpanda/cores/widgets/bob_mascot.dart';
-import 'package:foodpanda/features/splash/controllers/splash_controller.dart';
+import 'package:foodpanda/features/splash/controllers/splash_ridder_controller.dart';
 import 'package:get/get.dart';
 
-class SplashPage extends GetView<SplashController> {
-  const SplashPage({super.key});
+class SplashPageRidder extends GetView<SplashRidderController> {
+  SplashPageRidder({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class SplashPage extends GetView<SplashController> {
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: [AppColors.pink, AppColors.pinkDeep],
+                colors: [AppColors.Green, AppColors.Green],
               ),
             ),
           ),
@@ -54,18 +54,17 @@ class SplashPage extends GetView<SplashController> {
                       SizedBox(height: 32.h),
 
                       // Logo icon
-                      AnimatedFadeSlide(
-                        delay: const Duration(milliseconds: 0),
-                        child: const PandaLogoIcon(size: 72),
-                      ),
-
+                      // AnimatedFadeSlide(
+                      //   delay: const Duration(milliseconds: 0),
+                      //   child: const PandaLogoIcon(size: 72),
+                      // ),
                       SizedBox(height: 16.h),
 
                       // App name
                       AnimatedFadeSlide(
                         delay: const Duration(milliseconds: 150),
                         child: Text(
-                          'foodpanda',
+                          'Ridder',
                           style: AppTextStyles.appName(fontSize: 38),
                         ),
                       ),

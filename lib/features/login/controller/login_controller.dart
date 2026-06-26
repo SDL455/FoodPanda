@@ -1,5 +1,5 @@
 import 'package:foodpanda/cores/services/auth_service.dart';
-import 'package:foodpanda/routes/routes.dart';
+import 'package:foodpanda/routes/customer/customer_routes.dart';
 import 'package:get/get.dart';
 
 class LoginController extends GetxController {
@@ -11,7 +11,7 @@ class LoginController extends GetxController {
       isLoading.value = true;
       await _authService.signInWithGoogle();
 
-      Get.offAllNamed(Routes.customerDashboard);
+      Get.offAllNamed(CustomerRoutes.customerDashboard);
     } catch (e) {
       Get.snackbar('Error', e.toString());
     } finally {
@@ -29,7 +29,7 @@ class LoginController extends GetxController {
         return;
       }
 
-      Get.offAllNamed(Routes.customerDashboard);
+      Get.offAllNamed(CustomerRoutes.customerDashboard);
     } catch (e) {
       Get.snackbar('Error', e.toString());
     } finally {
@@ -38,7 +38,7 @@ class LoginController extends GetxController {
   }
 
   void continueAsGuest() {
-    Get.offAllNamed(Routes.customerDashboard);
+    Get.offAllNamed(CustomerRoutes.customerDashboard);
   }
 
   Future<void> signInWithApple() async {

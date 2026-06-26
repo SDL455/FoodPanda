@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:foodpanda/features/rider/views/widgets/profile_menu_item.dart';
-import 'package:foodpanda/routes/routes.dart';
+import 'package:foodpanda/routes/customer/customer_routes.dart';
 import 'package:get/get.dart';
 
 class CustomerProfile extends StatelessWidget {
@@ -91,7 +91,7 @@ class CustomerProfile extends StatelessWidget {
           ElevatedButton(
             onPressed: () async {
               await FirebaseAuth.instance.signOut();
-              Get.offAllNamed(Routes.login);
+              Get.offAllNamed(CustomerRoutes.login);
             },
             child: const Text('Logout'),
           ),

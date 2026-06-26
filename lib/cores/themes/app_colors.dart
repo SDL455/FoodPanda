@@ -12,7 +12,9 @@ class AppColors {
   static const Color shadow = Color(0x22000000);
   static const Color loadingScrim = Color(0x59000000);
   static const Color Blue = Color(0xFF4285F4);
-  static const Color Green = Color(0xFF34A853);
+  static const Color Green = Color(0xFF16A34A);
   static const Color Yellow = Color(0xFFFBBC05);
   static const Color Red = Color(0xFFEA4335);
+  static const Color White = Color(0xFFFFFFFF);
+  static const Color Indigo = Color(0xFF4F46E5);
 }
