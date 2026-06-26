@@ -27,5 +27,6 @@ class RidderBinding implements Bindings {
   void dependencies() {
     Get.lazyPut<SplashRidderController>(() => SplashRidderController());
     Get.lazyPut<LoginRidderController>(() => LoginRidderController());
+    // Get.put(LoginController());
   }
 }

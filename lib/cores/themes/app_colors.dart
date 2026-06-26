@@ -17,4 +17,7 @@ class AppColors {
   static const Color Red = Color(0xFFEA4335);
   static const Color White = Color(0xFFFFFFFF);
   static const Color Indigo = Color(0xFF4F46E5);
+  static const Color LightGreen = Color(0xFF86EFAC);
+  static const Color PrimaryGreen = Color(0xFF22C55E);
+  static const Color DarkGreen = Color(0xFF14532D);
 }
