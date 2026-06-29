@@ -20,19 +20,15 @@ class LoginPage extends GetView<LoginController> {
       backgroundColor: AppColors.pinkLight,
       body: Stack(
         children: [
-          // ── Gradient background ────────────────────────────────────
           const LoginBackground(),
 
-          // ── Main layout ────────────────────────────────────────────
           Column(
             children: [
-              // Top hero section (pink)
               Expanded(
                 flex: 48,
                 child: SafeArea(bottom: false, child: _HeroSection()),
               ),
 
-              // White bottom sheet with login options
               AnimatedSlideUp(
                 delay: const Duration(milliseconds: 300),
                 child: _LoginSheet(controller: controller),
@@ -40,7 +36,6 @@ class LoginPage extends GetView<LoginController> {
             ],
           ),
 
-          // ── Loading overlay ────────────────────────────────────────
           Obx(
             () => controller.isLoading.value
                 ? const LoadingOverlay()
@@ -52,9 +47,6 @@ class LoginPage extends GetView<LoginController> {
   }
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Hero section: mascot + title + tagline
-// ─────────────────────────────────────────────────────────────────────────────
 class _HeroSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -64,17 +56,14 @@ class _HeroSection extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // Mascot with bob animation
           const BobMascot(height: 170, amplitude: 7),
 
           SizedBox(height: 18.h),
 
-          // App name
           Text('foodpanda', style: AppTextStyles.appName(fontSize: 34)),
 
           SizedBox(height: 8.h),
 
-          // Tagline
           Text(
             'Hungry? Get food delivered from\nyour favourite restaurants.',
             textAlign: TextAlign.center,
@@ -86,9 +75,6 @@ class _HeroSection extends StatelessWidget {
   }
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Login sheet (white curved bottom card)
-// ─────────────────────────────────────────────────────────────────────────────
 class _LoginSheet extends StatelessWidget {
   final LoginController controller;
   const _LoginSheet({required this.controller});
@@ -96,14 +82,19 @@ class _LoginSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
+      decoration: BoxDecoration(
+        color: AppColors.glassWhite,
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(32)),
+        border: Border(
+          top: BorderSide(
+            color: Colors.white.withValues(alpha: 0.3),
+          ),
+        ),
         boxShadow: [
           BoxShadow(
-            color: AppColors.shadow,
-            blurRadius: 30,
-            offset: Offset(0, -6),
+            color: AppColors.shadowStrong,
+            blurRadius: 40,
+            offset: const Offset(0, -8),
           ),
         ],
       ),
@@ -112,13 +103,12 @@ class _LoginSheet extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // Handle bar
           Center(
             child: Container(
               width: 40.w,
               height: 4.h,
               decoration: BoxDecoration(
-                color: AppColors.divider,
+                color: AppColors.glassWhiteLight,
                 borderRadius: BorderRadius.circular(4.r),
               ),
             ),
@@ -126,7 +116,6 @@ class _LoginSheet extends StatelessWidget {
 
           SizedBox(height: 22.h),
 
-          // ── Social buttons ──────────────────────────────────────────
           SocialLoginButton(
             label: 'Continue with Google',
             kind: SocialLoginKind.google,
@@ -151,7 +140,6 @@ class _LoginSheet extends StatelessWidget {
 
           SizedBox(height: 16.h),
 
-          // ── Guest button ────────────────────────────────────────────
           Obx(
             () => _GuestButton(
               isLoading: controller.isLoading.value,
@@ -161,7 +149,6 @@ class _LoginSheet extends StatelessWidget {
 
           SizedBox(height: 12.h),
 
-          // Terms
           Center(
             child: Text(
               'By continuing, you agree to our Terms & Privacy Policy.',
@@ -177,9 +164,6 @@ class _LoginSheet extends StatelessWidget {
   }
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Guest button (login-specific)
-// ─────────────────────────────────────────────────────────────────────────────
 class _GuestButton extends StatelessWidget {
   final bool isLoading;
   final VoidCallback onPressed;
@@ -198,7 +182,7 @@ class _GuestButton extends StatelessWidget {
             width: 1.5,
           ),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(14.r),
+            borderRadius: BorderRadius.circular(16.r),
           ),
           textStyle: AppTextStyles.outlinedButtonLabel(),
         ),

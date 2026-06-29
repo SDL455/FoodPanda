@@ -19,7 +19,7 @@ class LoginRidderPage extends GetView<LoginRidderController> {
     return Scaffold(
       body: Stack(
         children: [
-          LoginBackgroundRidder(),
+          const LoginBackgroundRidder(),
 
           Column(
             children: [
@@ -37,7 +37,7 @@ class LoginRidderPage extends GetView<LoginRidderController> {
 
           Obx(
             () => controller.isLoading.value
-                ? const LoadingOverlay()
+                ? const LoadingOverlay(message: 'Signing in...')
                 : const SizedBox.shrink(),
           ),
         ],
@@ -81,18 +81,23 @@ class _LoginSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
+      decoration: BoxDecoration(
+        color: AppColors.glassWhite,
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(32)),
+        border: Border(
+          top: BorderSide(
+            color: Colors.white.withValues(alpha: 0.3),
+          ),
+        ),
         boxShadow: [
           BoxShadow(
-            color: AppColors.shadow,
-            blurRadius: 30,
-            offset: Offset(0, -6),
+            color: AppColors.shadowStrong,
+            blurRadius: 40,
+            offset: const Offset(0, -8),
           ),
         ],
       ),
-      padding: EdgeInsets.fromLTRB(24.w, 28.h, 24.w, 0),
+      padding: EdgeInsets.fromLTRB(24.w, 38.h, 24.w, 0),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -102,19 +107,21 @@ class _LoginSheet extends StatelessWidget {
               width: 40.w,
               height: 4.h,
               decoration: BoxDecoration(
-                color: AppColors.divider,
+                color: AppColors.glassWhiteLight,
                 borderRadius: BorderRadius.circular(4.r),
               ),
             ),
           ),
 
           SizedBox(height: 22.h),
+
           LoginInputField(
             controller: controller.phoneOrEmailController,
             hintText: 'ເບີໂທ ຫຼື ອີເມວ',
             prefixIcon: Icons.phone_android_rounded,
             keyboardType: TextInputType.emailAddress,
           ),
+
           const SizedBox(height: 16),
 
           Obx(
@@ -135,7 +142,9 @@ class _LoginSheet extends StatelessWidget {
               ),
             ),
           ),
+
           SizedBox(height: 16),
+
           Obx(
             () => GestureDetector(
               onTap: controller.isLoading.value ? null : controller.login,
@@ -143,15 +152,11 @@ class _LoginSheet extends StatelessWidget {
                 width: double.infinity,
                 height: 56.h,
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
-                    colors: [Color(0xFF43A047), Color(0xFF2E7D32)],
-                  ),
-                  borderRadius: BorderRadius.circular(15.r),
+                  gradient: AppColors.greenGradient,
+                  borderRadius: BorderRadius.circular(16.r),
                   boxShadow: [
                     BoxShadow(
-                      color: AppColors.primary.withOpacity(0.4),
+                      color: AppColors.primaryGreen.withValues(alpha: 0.4),
                       blurRadius: 20,
                       offset: const Offset(0, 10),
                     ),
@@ -162,7 +167,7 @@ class _LoginSheet extends StatelessWidget {
                         child: SizedBox(
                           width: 24.w,
                           height: 24.w,
-                          child: CircularProgressIndicator(
+                          child: const CircularProgressIndicator(
                             strokeWidth: 2.2,
                             color: Colors.white,
                           ),
@@ -191,6 +196,7 @@ class _LoginSheet extends StatelessWidget {
               ),
             ),
           ),
+
           SizedBox(height: 10.h),
         ],
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../themes/app_colors.dart';
 
@@ -25,12 +26,13 @@ class LoginInputField extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: AppColors.white,
-        borderRadius: BorderRadius.circular(14),
+        borderRadius: BorderRadius.circular(16.r),
+        border: Border.all(color: AppColors.divider.withValues(alpha: 0.5)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.06),
-            blurRadius: 10,
-            offset: const Offset(0, 2),
+            color: AppColors.shadowLight,
+            blurRadius: 12,
+            offset: const Offset(0, 4),
           ),
         ],
       ),
@@ -38,49 +40,54 @@ class LoginInputField extends StatelessWidget {
         controller: controller,
         obscureText: obscureText,
         keyboardType: keyboardType,
-        style: const TextStyle(
-          fontSize: 15,
+        style: TextStyle(
+          fontSize: 15.sp,
           color: AppColors.textDark,
           fontWeight: FontWeight.w500,
         ),
         decoration: InputDecoration(
           hintText: hintText,
-          hintStyle: const TextStyle(
+          hintStyle: TextStyle(
             color: AppColors.textGrey,
-            fontSize: 14,
+            fontSize: 14.sp,
             fontWeight: FontWeight.w400,
           ),
           prefixIcon: Container(
-            margin: const EdgeInsets.all(12),
-            width: 40,
-            height: 40,
+            margin: EdgeInsets.all(12.r),
+            width: 40.r,
+            height: 40.r,
             decoration: BoxDecoration(
-              color: AppColors.primary.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(10),
+              color: AppColors.primary.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(12.r),
             ),
-            child: Icon(prefixIcon, color: AppColors.primary, size: 20),
+            child: Icon(prefixIcon, color: AppColors.primary, size: 20.r),
           ),
-          suffixIcon: suffixIcon,
+          suffixIcon: suffixIcon != null
+              ? Padding(
+                  padding: EdgeInsets.only(right: 12.r),
+                  child: suffixIcon,
+                )
+              : null,
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(14),
+            borderRadius: BorderRadius.circular(16.r),
             borderSide: BorderSide.none,
           ),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(14),
+            borderRadius: BorderRadius.circular(16.r),
             borderSide: BorderSide.none,
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(14),
-            borderSide: const BorderSide(
+            borderRadius: BorderRadius.circular(16.r),
+            borderSide: BorderSide(
               color: AppColors.primaryLight,
               width: 1.5,
             ),
           ),
           filled: true,
           fillColor: AppColors.white,
-          contentPadding: const EdgeInsets.symmetric(
-            horizontal: 16,
-            vertical: 18,
+          contentPadding: EdgeInsets.symmetric(
+            horizontal: 16.w,
+            vertical: 18.h,
           ),
         ),
       ),

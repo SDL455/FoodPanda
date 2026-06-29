@@ -16,18 +16,12 @@ class SplashPage extends GetView<SplashController> {
     return Scaffold(
       body: Stack(
         children: [
-          // ── Pink gradient background ──────────────────────────────
           Container(
             decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [AppColors.pink, AppColors.pinkDeep],
-              ),
+              gradient: AppColors.pinkGradient,
             ),
           ),
 
-          // ── Decorative city-silhouette tint at bottom of pink area ─
           Positioned(
             bottom: 260.h,
             left: 0,
@@ -41,10 +35,8 @@ class SplashPage extends GetView<SplashController> {
             ),
           ),
 
-          // ── Content ───────────────────────────────────────────────
           Column(
             children: [
-              // Top section (pink area)
               Expanded(
                 flex: 62,
                 child: SafeArea(
@@ -53,15 +45,32 @@ class SplashPage extends GetView<SplashController> {
                     children: [
                       SizedBox(height: 32.h),
 
-                      // Logo icon
                       AnimatedFadeSlide(
                         delay: const Duration(milliseconds: 0),
-                        child: const PandaLogoIcon(size: 72),
+                        child: Container(
+                          width: 88.r,
+                          height: 88.r,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.white.withValues(alpha: 0.15),
+                            border: Border.all(
+                              color: Colors.white.withValues(alpha: 0.3),
+                              width: 2,
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.white.withValues(alpha: 0.1),
+                                blurRadius: 30,
+                                spreadRadius: 5,
+                              ),
+                            ],
+                          ),
+                          child: const PandaLogoIcon(size: 46),
+                        ),
                       ),
 
-                      SizedBox(height: 16.h),
+                      SizedBox(height: 20.h),
 
-                      // App name
                       AnimatedFadeSlide(
                         delay: const Duration(milliseconds: 150),
                         child: Text(
@@ -72,7 +81,6 @@ class SplashPage extends GetView<SplashController> {
 
                       SizedBox(height: 6.h),
 
-                      // Tagline
                       AnimatedFadeSlide(
                         delay: const Duration(milliseconds: 250),
                         child: Text(
@@ -86,7 +94,6 @@ class SplashPage extends GetView<SplashController> {
 
                       SizedBox(height: 24.h),
 
-                      // Panda delivery mascot
                       AnimatedFadeSlide(
                         delay: const Duration(milliseconds: 350),
                         child: const BobMascot(height: 270),
@@ -96,7 +103,6 @@ class SplashPage extends GetView<SplashController> {
                 ),
               ),
 
-              // Bottom white card
               AnimatedSlideUp(
                 delay: const Duration(milliseconds: 400),
                 child: const _BottomCard(),
@@ -109,9 +115,6 @@ class SplashPage extends GetView<SplashController> {
   }
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Bottom white card (splash-specific content)
-// ─────────────────────────────────────────────────────────────────────────────
 class _BottomCard extends StatelessWidget {
   const _BottomCard();
 
@@ -119,18 +122,29 @@ class _BottomCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(
+      decoration: BoxDecoration(
+        color: AppColors.glassWhite,
+        borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(32),
           topRight: Radius.circular(32),
         ),
+        border: Border(
+          top: BorderSide(
+            color: Colors.white.withValues(alpha: 0.3),
+          ),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.shadowStrong,
+            blurRadius: 40,
+            offset: const Offset(0, -8),
+          ),
+        ],
       ),
       padding: EdgeInsets.fromLTRB(28.w, 28.h, 28.w, 36.h),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          // Headline
           RichText(
             textAlign: TextAlign.center,
             text: TextSpan(
@@ -148,7 +162,6 @@ class _BottomCard extends StatelessWidget {
 
           SizedBox(height: 12.h),
 
-          // Sub-tagline
           Text(
             'From local favorites to all your cravings.',
             textAlign: TextAlign.center,
@@ -157,7 +170,6 @@ class _BottomCard extends StatelessWidget {
 
           SizedBox(height: 20.h),
 
-          // Page indicator dots
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -174,9 +186,6 @@ class _BottomCard extends StatelessWidget {
   }
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Page indicator dot (splash-specific)
-// ─────────────────────────────────────────────────────────────────────────────
 class _Dot extends StatelessWidget {
   final bool active;
   const _Dot({required this.active});
@@ -195,9 +204,6 @@ class _Dot extends StatelessWidget {
   }
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// City skyline decorative painter (splash-specific)
-// ─────────────────────────────────────────────────────────────────────────────
 class _CitySkylinePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {

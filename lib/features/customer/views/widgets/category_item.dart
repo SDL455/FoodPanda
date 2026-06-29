@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:foodpanda/cores/themes/app_colors.dart';
 
 class CategoryItem extends StatelessWidget {
   final IconData icon;
@@ -9,20 +11,28 @@ class CategoryItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(right: 16),
+      margin: EdgeInsets.only(right: 16.w),
       child: Column(
         children: [
           Container(
-            width: 60,
-            height: 60,
+            width: 60.w,
+            height: 60.h,
             decoration: BoxDecoration(
-              color: Colors.pink.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(12),
+              color: AppColors.white,
+              borderRadius: BorderRadius.circular(16.r),
+              border: Border.all(color: Colors.white.withValues(alpha: 0.3)),
+              boxShadow: [
+                BoxShadow(
+                  color: AppColors.shadowLight,
+                  blurRadius: 12,
+                  offset: const Offset(0, 4),
+                ),
+              ],
             ),
-            child: Icon(icon, size: 30, color: Colors.pink),
+            child: Icon(icon, size: 28.sp, color: AppColors.pink),
           ),
-          SizedBox(height: 4),
-          Text(label, style: TextStyle(fontSize: 12)),
+          SizedBox(height: 4.h),
+          Text(label, style: TextStyle(fontSize: 12.sp, color: AppColors.textDark)),
         ],
       ),
     );

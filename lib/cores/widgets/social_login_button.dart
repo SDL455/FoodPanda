@@ -2,18 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foodpanda/cores/themes/app_colors.dart';
 
-enum SocialLoginKind { google, apple, facebook }
+enum SocialLoginKind { google, apple, facebook, email }
 
 class SocialLoginButton extends StatefulWidget {
   final String label;
   final VoidCallback onPressed;
   final SocialLoginKind kind;
+  final IconData? customIcon;
 
   const SocialLoginButton({
     super.key,
     required this.label,
     required this.onPressed,
     this.kind = SocialLoginKind.google,
+    this.customIcon,
   });
 
   @override
@@ -92,7 +94,7 @@ class _SocialLoginButtonState extends State<SocialLoginButton>
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              _AppleIcon(),
+              Icon(Icons.apple, color: Colors.white, size: 22.sp),
               SizedBox(width: 12.w),
               Text(
                 widget.label,
@@ -126,11 +128,32 @@ class _SocialLoginButtonState extends State<SocialLoginButton>
             ],
           ),
         );
+
+      case SocialLoginKind.email:
+        return _SocialButtonShell(
+          backgroundColor: AppColors.primary,
+          borderColor: Colors.transparent,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(widget.customIcon ?? Icons.email_outlined,
+                  color: Colors.white, size: 22.sp),
+              SizedBox(width: 12.w),
+              Text(
+                widget.label,
+                style: TextStyle(
+                  fontSize: 15.sp,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          ),
+        );
     }
   }
 }
 
-// ── Button shell ─────────────────────────────────────────────────────────────
 class _SocialButtonShell extends StatelessWidget {
   final Color backgroundColor;
   final Color borderColor;
@@ -146,16 +169,16 @@ class _SocialButtonShell extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 52.h,
+      height: 54.h,
       decoration: BoxDecoration(
         color: backgroundColor,
-        borderRadius: BorderRadius.circular(14.r),
+        borderRadius: BorderRadius.circular(16.r),
         border: Border.all(color: borderColor, width: 1.2),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.06),
-            blurRadius: 8,
-            offset: const Offset(0, 3),
+            color: AppColors.shadowLight,
+            blurRadius: 12,
+            offset: const Offset(0, 4),
           ),
         ],
       ),
@@ -164,7 +187,6 @@ class _SocialButtonShell extends StatelessWidget {
   }
 }
 
-// ── Brand icons ───────────────────────────────────────────────────────────────
 class _GoogleIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -183,12 +205,11 @@ class _GooglePainter extends CustomPainter {
     final cy = size.height / 2;
     final r = size.width / 2;
 
-    // Pie slices (simplified G logo)
     final colors = [
-      AppColors.Blue, // Blue top-right
-      AppColors.Green, // Green bottom-right
-      AppColors.Yellow, // Yellow bottom-left
-      AppColors.Red, // Red top-left
+      AppColors.Blue,
+      AppColors.Green,
+      AppColors.Yellow,
+      AppColors.Red,
     ];
     final starts = [0.0, 90.0, 180.0, 270.0];
 
@@ -202,15 +223,17 @@ class _GooglePainter extends CustomPainter {
       );
     }
 
-    // White centre circle
-    canvas.drawCircle(Offset(cx, cy), r * 0.60, Paint()..color = Colors.white);
+    canvas.drawCircle(
+      Offset(cx, cy),
+      r * 0.60,
+      Paint()..color = Colors.white,
+    );
 
-    // Right cutout for 'G' bar
     canvas.drawRect(
       Rect.fromLTWH(cx, cy - r * 0.18, r + 1, r * 0.36),
       Paint()..color = AppColors.Blue,
     );
-    // White inner for bar
+
     canvas.drawRect(
       Rect.fromLTWH(cx, cy - r * 0.18, r * 0.40, r * 0.36),
       Paint()..color = Colors.white,
@@ -221,13 +244,6 @@ class _GooglePainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
-}
-
-class _AppleIcon extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Icon(Icons.apple, color: Colors.white, size: 22.sp);
-  }
 }
 
 class _FacebookIcon extends StatelessWidget {
@@ -247,14 +263,12 @@ class _FacebookPainter extends CustomPainter {
     final w = size.width;
     final h = size.height;
 
-    // White circle background
     canvas.drawCircle(
       Offset(w / 2, h / 2),
       w / 2,
       Paint()..color = Colors.white,
     );
 
-    // Blue 'f' letter
     final textPainter = TextPainter(
       text: const TextSpan(
         text: 'f',

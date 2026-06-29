@@ -16,18 +16,12 @@ class SplashPageRidder extends GetView<SplashRidderController> {
     return Scaffold(
       body: Stack(
         children: [
-          // ── Pink gradient background ──────────────────────────────
           Container(
             decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [AppColors.Green, AppColors.Green],
-              ),
+              gradient: AppColors.greenGradient,
             ),
           ),
 
-          // ── Decorative city-silhouette tint at bottom of pink area ─
           Positioned(
             bottom: 260.h,
             left: 0,
@@ -41,10 +35,8 @@ class SplashPageRidder extends GetView<SplashRidderController> {
             ),
           ),
 
-          // ── Content ───────────────────────────────────────────────
           Column(
             children: [
-              // Top section (pink area)
               Expanded(
                 flex: 62,
                 child: SafeArea(
@@ -53,14 +45,6 @@ class SplashPageRidder extends GetView<SplashRidderController> {
                     children: [
                       SizedBox(height: 32.h),
 
-                      // Logo icon
-                      // AnimatedFadeSlide(
-                      //   delay: const Duration(milliseconds: 0),
-                      //   child: const PandaLogoIcon(size: 72),
-                      // ),
-                      SizedBox(height: 16.h),
-
-                      // App name
                       AnimatedFadeSlide(
                         delay: const Duration(milliseconds: 150),
                         child: Text(
@@ -71,7 +55,6 @@ class SplashPageRidder extends GetView<SplashRidderController> {
 
                       SizedBox(height: 6.h),
 
-                      // Tagline
                       AnimatedFadeSlide(
                         delay: const Duration(milliseconds: 250),
                         child: Text(
@@ -85,7 +68,6 @@ class SplashPageRidder extends GetView<SplashRidderController> {
 
                       SizedBox(height: 24.h),
 
-                      // Panda delivery mascot
                       AnimatedFadeSlide(
                         delay: const Duration(milliseconds: 350),
                         child: const BobMascot(height: 270),
@@ -95,7 +77,6 @@ class SplashPageRidder extends GetView<SplashRidderController> {
                 ),
               ),
 
-              // Bottom white card
               AnimatedSlideUp(
                 delay: const Duration(milliseconds: 400),
                 child: const _BottomCard(),
@@ -108,9 +89,6 @@ class SplashPageRidder extends GetView<SplashRidderController> {
   }
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Bottom white card (splash-specific content)
-// ─────────────────────────────────────────────────────────────────────────────
 class _BottomCard extends StatelessWidget {
   const _BottomCard();
 
@@ -118,18 +96,29 @@ class _BottomCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(
+      decoration: BoxDecoration(
+        color: AppColors.glassWhite,
+        borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(32),
           topRight: Radius.circular(32),
         ),
+        border: Border(
+          top: BorderSide(
+            color: Colors.white.withValues(alpha: 0.3),
+          ),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.shadowStrong,
+            blurRadius: 40,
+            offset: const Offset(0, -8),
+          ),
+        ],
       ),
       padding: EdgeInsets.fromLTRB(28.w, 28.h, 28.w, 36.h),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          // Headline
           RichText(
             textAlign: TextAlign.center,
             text: TextSpan(
@@ -139,7 +128,7 @@ class _BottomCard extends StatelessWidget {
                 TextSpan(text: 'delivered '),
                 TextSpan(
                   text: 'to your door',
-                  style: TextStyle(color: AppColors.pink),
+                  style: TextStyle(color: AppColors.primaryGreen),
                 ),
               ],
             ),
@@ -147,7 +136,6 @@ class _BottomCard extends StatelessWidget {
 
           SizedBox(height: 12.h),
 
-          // Sub-tagline
           Text(
             'From local favorites to all your cravings.',
             textAlign: TextAlign.center,
@@ -156,7 +144,6 @@ class _BottomCard extends StatelessWidget {
 
           SizedBox(height: 20.h),
 
-          // Page indicator dots
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -173,9 +160,6 @@ class _BottomCard extends StatelessWidget {
   }
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Page indicator dot (splash-specific)
-// ─────────────────────────────────────────────────────────────────────────────
 class _Dot extends StatelessWidget {
   final bool active;
   const _Dot({required this.active});
@@ -187,16 +171,15 @@ class _Dot extends StatelessWidget {
       width: active ? 24.w : 7.w,
       height: 6.h,
       decoration: BoxDecoration(
-        color: active ? AppColors.pink : AppColors.pink.withValues(alpha: 0.25),
+        color: active
+            ? AppColors.primaryGreen
+            : AppColors.primaryGreen.withValues(alpha: 0.25),
         borderRadius: BorderRadius.circular(4.r),
       ),
     );
   }
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// City skyline decorative painter (splash-specific)
-// ─────────────────────────────────────────────────────────────────────────────
 class _CitySkylinePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {

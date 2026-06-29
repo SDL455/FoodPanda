@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:foodpanda/cores/themes/app_colors.dart';
 import 'package:foodpanda/features/rider/views/widgets/profile_menu_item.dart';
 import 'package:foodpanda/routes/customer/customer_routes.dart';
 import 'package:get/get.dart';
@@ -12,65 +14,111 @@ class CustomerProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Padding(
-        padding: EdgeInsets.all(16),
+      child: SingleChildScrollView(
+        padding: EdgeInsets.all(16.w),
         child: Column(
           children: [
-            CircleAvatar(
-              radius: 50,
-              backgroundImage: user?.photoURL != null
-                  ? NetworkImage(user!.photoURL!)
-                  : null,
-              child: user?.photoURL == null
-                  ? Icon(Icons.person, size: 50)
-                  : null,
-            ),
-            SizedBox(height: 16),
-            Text(
-              user?.displayName ?? '',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            Text(user?.email ?? '', style: TextStyle(color: Colors.grey)),
-            SizedBox(height: 30),
-            Expanded(
-              child: ListView(
-                children: [
-                  ProfileMenuItem(
-                    icon: Icons.location_on,
-                    title: 'Addresses',
-                    onTap: () => _goto(context, const AddressesPage()),
-                  ),
-                  ProfileMenuItem(
-                    icon: Icons.payment,
-                    title: 'Payment Methods',
-                    onTap: () => _goto(context, const PaymentMethodsPage()),
-                  ),
-                  ProfileMenuItem(
-                    icon: Icons.notifications,
-                    title: 'Notifications',
-                    onTap: () => _goto(context, const NotificationsPage()),
-                  ),
-                  ProfileMenuItem(
-                    icon: Icons.help,
-                    title: 'Help & Support',
-                    onTap: () => _goto(context, const HelpSupportPage()),
-                  ),
-                  ProfileMenuItem(
-                    icon: Icons.settings,
-                    title: 'Settings',
-                    onTap: () => _goto(context, const SettingsPage()),
-                  ),
-                  ProfileMenuItem(
-                    icon: Icons.logout,
-                    title: 'Logout',
-                    onTap: () => _confirmLogout(context),
-                  ),
-                ],
-              ),
-            ),
+            _buildProfileCard(),
+            SizedBox(height: 24.h),
+            _buildMenuItems(context),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildProfileCard() {
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.all(24.w),
+      decoration: BoxDecoration(
+        gradient: AppColors.pinkGradient,
+        borderRadius: BorderRadius.circular(24.r),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.pink.withValues(alpha: 0.3),
+            blurRadius: 20,
+            offset: const Offset(0, 8),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          CircleAvatar(
+            radius: 40.r,
+            backgroundColor: AppColors.glassWhiteLight,
+            backgroundImage: user?.photoURL != null
+                ? NetworkImage(user!.photoURL!)
+                : null,
+            child: user?.photoURL == null
+                ? Icon(Icons.person, size: 40.sp, color: Colors.white)
+                : null,
+          ),
+          SizedBox(height: 12.h),
+          Text(
+            user?.displayName ?? '',
+            style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold, color: Colors.white),
+          ),
+          SizedBox(height: 4.h),
+          Text(
+            user?.email ?? '',
+            style: TextStyle(color: Colors.white.withValues(alpha: 0.8), fontSize: 14.sp),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildMenuItems(BuildContext context) {
+    return Column(
+      children: [
+        ProfileMenuItem(
+          icon: Icons.location_on,
+          title: 'Addresses',
+          onTap: () => _goto(context, const AddressesPage()),
+        ),
+        ProfileMenuItem(
+          icon: Icons.payment,
+          title: 'Payment Methods',
+          onTap: () => _goto(context, const PaymentMethodsPage()),
+        ),
+        ProfileMenuItem(
+          icon: Icons.notifications,
+          title: 'Notifications',
+          onTap: () => _goto(context, const NotificationsPage()),
+        ),
+        ProfileMenuItem(
+          icon: Icons.help,
+          title: 'Help & Support',
+          onTap: () => _goto(context, const HelpSupportPage()),
+        ),
+        ProfileMenuItem(
+          icon: Icons.settings,
+          title: 'Settings',
+          onTap: () => _goto(context, const SettingsPage()),
+        ),
+        SizedBox(height: 8.h),
+        Container(
+          decoration: BoxDecoration(
+            color: AppColors.white,
+            borderRadius: BorderRadius.circular(16.r),
+            border: Border.all(color: Colors.white.withValues(alpha: 0.3)),
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.shadowLight,
+                blurRadius: 12,
+                offset: const Offset(0, 4),
+              ),
+            ],
+          ),
+          child: ListTile(
+            leading: Icon(Icons.logout, color: AppColors.red),
+            title: Text('Logout', style: TextStyle(fontSize: 15.sp, color: AppColors.red)),
+            trailing: Icon(Icons.arrow_forward_ios, size: 16.sp, color: AppColors.textGrey),
+            onTap: () => _confirmLogout(context),
+          ),
+        ),
+      ],
     );
   }
 
@@ -81,19 +129,27 @@ class CustomerProfile extends StatelessWidget {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
+        backgroundColor: AppColors.white,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
         title: const Text('Logout'),
         content: const Text('Are you sure you want to logout?'),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(),
-            child: const Text('Cancel'),
+            child: Text('Cancel', style: TextStyle(color: AppColors.textGrey)),
           ),
-          ElevatedButton(
-            onPressed: () async {
-              await FirebaseAuth.instance.signOut();
-              Get.offAllNamed(CustomerRoutes.login);
-            },
-            child: const Text('Logout'),
+          Container(
+            decoration: BoxDecoration(
+              gradient: AppColors.pinkGradient,
+              borderRadius: BorderRadius.circular(12.r),
+            ),
+            child: TextButton(
+              onPressed: () async {
+                await FirebaseAuth.instance.signOut();
+                Get.offAllNamed(CustomerRoutes.login);
+              },
+              child: Text('Logout', style: TextStyle(color: Colors.white)),
+            ),
           ),
         ],
       ),
@@ -107,17 +163,35 @@ class AddressesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('My Addresses')),
+      appBar: AppBar(
+        title: const Text('My Addresses'),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        foregroundColor: AppColors.textDark,
+      ),
       body: ListView.separated(
-        padding: const EdgeInsets.all(16),
-        separatorBuilder: (_, __) => const SizedBox(height: 12),
+        padding: EdgeInsets.all(16.w),
+        separatorBuilder: (_, __) => SizedBox(height: 12.h),
         itemCount: 3,
-        itemBuilder: (_, i) => Card(
+        itemBuilder: (_, i) => Container(
+          decoration: BoxDecoration(
+            color: AppColors.white,
+            borderRadius: BorderRadius.circular(16.r),
+            border: Border.all(color: Colors.white.withValues(alpha: 0.3)),
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.shadowLight,
+                blurRadius: 12,
+                offset: const Offset(0, 4),
+              ),
+            ],
+          ),
           child: ListTile(
-            title: Text('Home #${i + 1}'),
-            subtitle: const Text('123 Main St, Springfield'),
+            leading: Icon(Icons.location_on, color: AppColors.pink),
+            title: Text('Home #${i + 1}', style: TextStyle(color: AppColors.textDark)),
+            subtitle: const Text('123 Main St, Springfield', style: TextStyle(color: AppColors.textGrey)),
             trailing: IconButton(
-              icon: const Icon(Icons.edit),
+              icon: Icon(Icons.edit, color: AppColors.pink),
               onPressed: () {},
             ),
           ),
@@ -126,7 +200,8 @@ class AddressesPage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
         tooltip: 'Add Address',
-        child: const Icon(Icons.add_location_alt_outlined),
+        backgroundColor: AppColors.pink,
+        child: const Icon(Icons.add_location_alt_outlined, color: Colors.white),
       ),
     );
   }
@@ -138,19 +213,22 @@ class PaymentMethodsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Payment Methods')),
+      appBar: AppBar(
+        title: const Text('Payment Methods'),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        foregroundColor: AppColors.textDark,
+      ),
       body: ListView(
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.all(16.w),
         children: [
           _buildCard(
-            context,
             title: 'Visa **** 4242',
             subtitle: 'Expires 12/25',
             brandIcon: Icons.credit_card,
           ),
-          const SizedBox(height: 12),
+          SizedBox(height: 12.h),
           _buildCard(
-            context,
             title: 'MasterCard **** 1111',
             subtitle: 'Expires 03/26',
             brandIcon: Icons.credit_card,
@@ -160,23 +238,38 @@ class PaymentMethodsPage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
         tooltip: 'Add Card',
-        child: const Icon(Icons.add_card),
+        backgroundColor: AppColors.pink,
+        child: const Icon(Icons.add_card, color: Colors.white),
       ),
     );
   }
 
-  Widget _buildCard(
-    BuildContext context, {
+  Widget _buildCard({
     required String title,
     required String subtitle,
     required IconData brandIcon,
   }) {
-    return Card(
+    return Container(
+      decoration: BoxDecoration(
+        color: AppColors.white,
+        borderRadius: BorderRadius.circular(16.r),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.3)),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.shadowLight,
+            blurRadius: 12,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
       child: ListTile(
-        leading: Icon(brandIcon, size: 32),
-        title: Text(title),
-        subtitle: Text(subtitle),
-        trailing: IconButton(icon: const Icon(Icons.edit), onPressed: () {}),
+        leading: Icon(brandIcon, size: 32.sp, color: AppColors.pink),
+        title: Text(title, style: TextStyle(color: AppColors.textDark)),
+        subtitle: Text(subtitle, style: TextStyle(color: AppColors.textGrey)),
+        trailing: IconButton(
+          icon: Icon(Icons.edit, color: AppColors.pink),
+          onPressed: () {},
+        ),
       ),
     );
   }
@@ -197,28 +290,65 @@ class _NotificationsPageState extends State<NotificationsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Notifications')),
+      appBar: AppBar(
+        title: const Text('Notifications'),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        foregroundColor: AppColors.textDark,
+      ),
       body: ListView(
+        padding: EdgeInsets.all(16.w),
         children: [
-          SwitchListTile(
+          _buildSwitchTile(
             value: orderUpdates,
-            title: const Text('Order Updates'),
-            subtitle: const Text('Get updates on your orders'),
+            title: 'Order Updates',
+            subtitle: 'Get updates on your orders',
             onChanged: (val) => setState(() => orderUpdates = val),
           ),
-          SwitchListTile(
+          SizedBox(height: 12.h),
+          _buildSwitchTile(
             value: promos,
-            title: const Text('Promotions'),
-            subtitle: const Text('Receive promotional emails and push'),
+            title: 'Promotions',
+            subtitle: 'Receive promotional emails and push',
             onChanged: (val) => setState(() => promos = val),
           ),
-          SwitchListTile(
+          SizedBox(height: 12.h),
+          _buildSwitchTile(
             value: appUpdates,
-            title: const Text('App Updates'),
-            subtitle: const Text('Be notified of new features'),
+            title: 'App Updates',
+            subtitle: 'Be notified of new features',
             onChanged: (val) => setState(() => appUpdates = val),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildSwitchTile({
+    required bool value,
+    required String title,
+    required String subtitle,
+    required ValueChanged<bool> onChanged,
+  }) {
+    return Container(
+      decoration: BoxDecoration(
+        color: AppColors.white,
+        borderRadius: BorderRadius.circular(16.r),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.3)),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.shadowLight,
+            blurRadius: 12,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: SwitchListTile(
+        value: value,
+        title: Text(title, style: TextStyle(color: AppColors.textDark)),
+        subtitle: Text(subtitle, style: TextStyle(color: AppColors.textGrey)),
+        activeColor: AppColors.pink,
+        onChanged: onChanged,
       ),
     );
   }
@@ -230,26 +360,48 @@ class HelpSupportPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Help & Support')),
+      appBar: AppBar(
+        title: const Text('Help & Support'),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        foregroundColor: AppColors.textDark,
+      ),
       body: ListView(
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.all(16.w),
         children: [
           _faqTile('How to place an order?'),
+          SizedBox(height: 12.h),
           _faqTile('How to track my delivery?'),
+          SizedBox(height: 12.h),
           _faqTile('Refund policy'),
+          SizedBox(height: 12.h),
           _faqTile('Contact customer service'),
         ],
       ),
     );
   }
 
-  Widget _faqTile(String question) => Card(
-    child: ListTile(
-      title: Text(question),
-      trailing: const Icon(Icons.chevron_right),
-      onTap: () {},
-    ),
-  );
+  Widget _faqTile(String question) {
+    return Container(
+      decoration: BoxDecoration(
+        color: AppColors.white,
+        borderRadius: BorderRadius.circular(16.r),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.3)),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.shadowLight,
+            blurRadius: 12,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: ListTile(
+        title: Text(question, style: TextStyle(color: AppColors.textDark)),
+        trailing: Icon(Icons.chevron_right, color: AppColors.textGrey),
+        onTap: () {},
+      ),
+    );
+  }
 }
 
 class SettingsPage extends StatelessWidget {
@@ -261,26 +413,99 @@ class SettingsPage extends StatelessWidget {
     final emailController = TextEditingController(text: 'john.doe@email.com');
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Settings')),
+      appBar: AppBar(
+        title: const Text('Settings'),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        foregroundColor: AppColors.textDark,
+      ),
       body: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.all(16.w),
         child: Column(
           children: [
-            TextField(
-              controller: nameController,
-              decoration: const InputDecoration(labelText: 'Name'),
+            Container(
+              padding: EdgeInsets.all(16.w),
+              decoration: BoxDecoration(
+                color: AppColors.white,
+                borderRadius: BorderRadius.circular(16.r),
+                border: Border.all(color: Colors.white.withValues(alpha: 0.3)),
+                boxShadow: [
+                  BoxShadow(
+                    color: AppColors.shadowLight,
+                    blurRadius: 12,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
+              ),
+              child: Column(
+                children: [
+                  TextField(
+                    controller: nameController,
+                    decoration: InputDecoration(
+                      labelText: 'Name',
+                      labelStyle: TextStyle(color: AppColors.textGrey),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12.r),
+                        borderSide: BorderSide(color: AppColors.inputBorder),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12.r),
+                        borderSide: BorderSide(color: AppColors.inputBorder),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12.r),
+                        borderSide: BorderSide(color: AppColors.pink),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 12.h),
+                  TextField(
+                    controller: emailController,
+                    decoration: InputDecoration(
+                      labelText: 'Email',
+                      labelStyle: TextStyle(color: AppColors.textGrey),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12.r),
+                        borderSide: BorderSide(color: AppColors.inputBorder),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12.r),
+                        borderSide: BorderSide(color: AppColors.inputBorder),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12.r),
+                        borderSide: BorderSide(color: AppColors.pink),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-            const SizedBox(height: 12),
-            TextField(
-              controller: emailController,
-              decoration: const InputDecoration(labelText: 'Email'),
-            ),
-            const SizedBox(height: 24),
+            SizedBox(height: 24.h),
             SizedBox(
               width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {},
-                child: const Text('Save Changes'),
+              child: Container(
+                decoration: BoxDecoration(
+                  gradient: AppColors.pinkGradient,
+                  borderRadius: BorderRadius.circular(16.r),
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppColors.pink.withValues(alpha: 0.3),
+                      blurRadius: 12,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.transparent,
+                    shadowColor: Colors.transparent,
+                    padding: EdgeInsets.symmetric(vertical: 14.h),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.r)),
+                  ),
+                  child: Text('Save Changes', style: TextStyle(fontSize: 16.sp, color: Colors.white, fontWeight: FontWeight.w600)),
+                ),
               ),
             ),
           ],

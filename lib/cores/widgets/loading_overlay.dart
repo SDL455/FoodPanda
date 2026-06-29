@@ -14,15 +14,19 @@ class LoadingOverlay extends StatelessWidget {
       color: AppColors.loadingScrim,
       child: Center(
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 36.w, vertical: 28.h),
+          margin: EdgeInsets.symmetric(horizontal: 60.w),
+          padding: EdgeInsets.symmetric(horizontal: 32.w, vertical: 28.h),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: AppColors.glassWhite,
             borderRadius: BorderRadius.circular(20.r),
+            border: Border.all(
+              color: Colors.white.withValues(alpha: 0.3),
+            ),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withValues(alpha: 0.12),
-                blurRadius: 24,
-                offset: const Offset(0, 8),
+                color: AppColors.shadowStrong,
+                blurRadius: 40,
+                offset: const Offset(0, 10),
               ),
             ],
           ),
@@ -30,11 +34,11 @@ class LoadingOverlay extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               SizedBox(
-                width: 44.w,
-                height: 44.w,
-                child: CircularProgressIndicator(
+                width: 32.w,
+                height: 32.w,
+                child: const CircularProgressIndicator(
                   strokeWidth: 3,
-                  color: AppColors.pinkLight,
+                  color: AppColors.pink,
                 ),
               ),
               SizedBox(height: 16.h),
