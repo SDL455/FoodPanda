@@ -20,4 +20,14 @@ class AppColors {
   static const Color LightGreen = Color(0xFF86EFAC);
   static const Color PrimaryGreen = Color(0xFF22C55E);
   static const Color DarkGreen = Color(0xFF14532D);
+  static const Color primary = Color(0xFF2E7D32);
+  static const Color primaryLight = Color(0xFF4CAF50);
+  static const Color primaryDark = Color(0xFF1B5E20);
+  static const Color accent = Color(0xFF00C853);
+  static const Color background = Color(0xFFF8F9FA);
+  static const Color white = Color(0xFFFFFFFF);
+  static const Color textDark = Color(0xFF1A1A2E);
+  static const Color textGrey = Color(0xFF9E9E9E);
+  static const Color inputBorder = Color(0xFFE8E8E8);
+  static const Color inputFill = Color(0xFFF5F5F5);
 }

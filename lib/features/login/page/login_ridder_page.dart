@@ -6,9 +6,8 @@ import 'package:foodpanda/cores/widgets/animated_fade_slide.dart';
 import 'package:foodpanda/cores/widgets/animated_slide_up.dart';
 import 'package:foodpanda/cores/widgets/bob_mascot.dart';
 import 'package:foodpanda/cores/widgets/loading_overlay.dart';
-import 'package:foodpanda/cores/widgets/login_background.dart';
 import 'package:foodpanda/cores/widgets/login_background_ridder.dart';
-import 'package:foodpanda/cores/widgets/social_login_button.dart';
+import 'package:foodpanda/cores/widgets/login_input_field.dart';
 import 'package:foodpanda/features/login/controller/login_ridder_controller.dart';
 import 'package:get/get.dart';
 
@@ -18,22 +17,17 @@ class LoginRidderPage extends GetView<LoginRidderController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: AppColors.Green,
       body: Stack(
         children: [
-          // ── Gradient background ────────────────────────────────────
           LoginBackgroundRidder(),
 
-          // ── Main layout ────────────────────────────────────────────
           Column(
             children: [
-              // Top hero section (pink)
               Expanded(
                 flex: 48,
                 child: SafeArea(bottom: false, child: _HeroSection()),
               ),
 
-              // White bottom sheet with login options
               AnimatedSlideUp(
                 delay: const Duration(milliseconds: 300),
                 child: _LoginSheet(controller: controller),
@@ -41,7 +35,6 @@ class LoginRidderPage extends GetView<LoginRidderController> {
             ],
           ),
 
-          // ── Loading overlay ────────────────────────────────────────
           Obx(
             () => controller.isLoading.value
                 ? const LoadingOverlay()
@@ -53,9 +46,6 @@ class LoginRidderPage extends GetView<LoginRidderController> {
   }
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Hero section: mascot + title + tagline
-// ─────────────────────────────────────────────────────────────────────────────
 class _HeroSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -65,17 +55,14 @@ class _HeroSection extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // Mascot with bob animation
           const BobMascot(height: 170, amplitude: 7),
 
           SizedBox(height: 18.h),
 
-          // App name
           Text('Ridder', style: AppTextStyles.appName(fontSize: 34)),
 
           SizedBox(height: 8.h),
 
-          // Tagline
           Text(
             'Hungry? Get food delivered from\nyour favourite restaurants.',
             textAlign: TextAlign.center,
@@ -87,9 +74,6 @@ class _HeroSection extends StatelessWidget {
   }
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Login sheet (white curved bottom card)
-// ─────────────────────────────────────────────────────────────────────────────
 class _LoginSheet extends StatelessWidget {
   final LoginRidderController controller;
   const _LoginSheet({required this.controller});
@@ -113,7 +97,6 @@ class _LoginSheet extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // Handle bar
           Center(
             child: Container(
               width: 40.w,
@@ -126,105 +109,90 @@ class _LoginSheet extends StatelessWidget {
           ),
 
           SizedBox(height: 22.h),
-
-          // ── Social buttons ──────────────────────────────────────────
-          SocialLoginButton(
-            label: 'Continue with Google',
-            kind: SocialLoginKind.google,
-            // onPressed: controller.signInWithGoogle,
-            onPressed: () {},
+          LoginInputField(
+            controller: controller.phoneOrEmailController,
+            hintText: 'ເບີໂທ ຫຼື ອີເມວ',
+            prefixIcon: Icons.phone_android_rounded,
+            keyboardType: TextInputType.emailAddress,
           ),
+          const SizedBox(height: 16),
 
-          SizedBox(height: 12.h),
-
-          SocialLoginButton(
-            label: 'Continue with Apple',
-            kind: SocialLoginKind.apple,
-            // onPressed: controller.signInWithApple,
-            onPressed: () {},
-          ),
-
-          SizedBox(height: 12.h),
-
-          SocialLoginButton(
-            label: 'Continue with Facebook',
-            kind: SocialLoginKind.facebook,
-            // onPressed: controller.signInWithFacebook,
-            onPressed: () {},
-          ),
-
-          SizedBox(height: 16.h),
-
-          // ── Guest button ────────────────────────────────────────────
           Obx(
-            () => _GuestButton(
-              isLoading: controller.isLoading.value,
-              // onPressed: controller.continueAsGuest,
-              onPressed: () {},
-            ),
-          ),
-
-          SizedBox(height: 12.h),
-
-          // Terms
-          Center(
-            child: Text(
-              'By continuing, you agree to our Terms & Privacy Policy.',
-              textAlign: TextAlign.center,
-              style: AppTextStyles.termsCaption(),
-            ),
-          ),
-
-          SizedBox(height: 28.h),
-        ],
-      ),
-    );
-  }
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Guest button (login-specific)
-// ─────────────────────────────────────────────────────────────────────────────
-class _GuestButton extends StatelessWidget {
-  final bool isLoading;
-  final VoidCallback onPressed;
-  const _GuestButton({required this.isLoading, required this.onPressed});
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      height: 50.h,
-      child: OutlinedButton(
-        style: OutlinedButton.styleFrom(
-          foregroundColor: AppColors.pinkLight,
-          side: BorderSide(
-            color: AppColors.pinkLight.withValues(alpha: 0.40),
-            width: 1.5,
-          ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(14.r),
-          ),
-          textStyle: AppTextStyles.outlinedButtonLabel(),
-        ),
-        onPressed: isLoading ? null : onPressed,
-        child: isLoading
-            ? SizedBox(
-                width: 20.w,
-                height: 20.w,
-                child: const CircularProgressIndicator(
-                  strokeWidth: 2.2,
-                  color: AppColors.pinkLight,
+            () => LoginInputField(
+              controller: controller.passwordController,
+              hintText: 'ລະຫັດຜ່ານ',
+              prefixIcon: Icons.lock_outline_rounded,
+              obscureText: !controller.isPasswordVisible.value,
+              suffixIcon: GestureDetector(
+                onTap: controller.togglePasswordVisibility,
+                child: Icon(
+                  controller.isPasswordVisible.value
+                      ? Icons.visibility_outlined
+                      : Icons.visibility_off_outlined,
+                  color: AppColors.textGrey,
+                  size: 20,
                 ),
-              )
-            : Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.person_outline_rounded, size: 18.sp),
-                  SizedBox(width: 8.w),
-                  const Text('Continue as Guest'),
-                ],
               ),
+            ),
+          ),
+          SizedBox(height: 16),
+          Obx(
+            () => GestureDetector(
+              onTap: controller.isLoading.value ? null : controller.login,
+              child: Container(
+                width: double.infinity,
+                height: 56.h,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                    colors: [Color(0xFF43A047), Color(0xFF2E7D32)],
+                  ),
+                  borderRadius: BorderRadius.circular(15.r),
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppColors.primary.withOpacity(0.4),
+                      blurRadius: 20,
+                      offset: const Offset(0, 10),
+                    ),
+                  ],
+                ),
+                child: controller.isLoading.value
+                    ? Center(
+                        child: SizedBox(
+                          width: 24.w,
+                          height: 24.w,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2.2,
+                            color: Colors.white,
+                          ),
+                        ),
+                      )
+                    : Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.directions_bike_rounded,
+                            color: Colors.white,
+                            size: 22.w,
+                          ),
+                          const SizedBox(width: 10),
+                          const Text(
+                            'ເຂົ້າສູ່ລະບົບ',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 17,
+                              fontWeight: FontWeight.w700,
+                              letterSpacing: 0.5,
+                            ),
+                          ),
+                        ],
+                      ),
+              ),
+            ),
+          ),
+          SizedBox(height: 10.h),
+        ],
       ),
     );
   }
