@@ -4,6 +4,7 @@ import 'package:foodpanda/features/admin/controllers/admin_controller.dart';
 import 'package:foodpanda/features/customer/controllers/customer_controller.dart';
 import 'package:foodpanda/features/login/controller/login_controller.dart';
 import 'package:foodpanda/features/login/controller/login_ridder_controller.dart';
+import 'package:foodpanda/features/rider/controllers/rider_controller.dart';
 import 'package:foodpanda/features/splash/controllers/splash_controller.dart';
 import 'package:foodpanda/features/splash/controllers/splash_ridder_controller.dart';
 import 'package:get/get.dart';
@@ -27,6 +28,6 @@ class RidderBinding implements Bindings {
   void dependencies() {
     Get.lazyPut<SplashRidderController>(() => SplashRidderController());
     Get.lazyPut<LoginRidderController>(() => LoginRidderController());
-    // Get.put(LoginController());
+    Get.put(RiderController(), permanent: true);
   }
 }

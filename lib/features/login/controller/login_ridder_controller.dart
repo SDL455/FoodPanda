@@ -4,6 +4,7 @@
 //   final isLoading = false.obs;
 // }
 import 'package:flutter/material.dart';
+import 'package:foodpanda/routes/ridder/ridder_routes.dart';
 import 'package:get/get.dart';
 
 class LoginRidderController extends GetxController {
@@ -46,6 +47,8 @@ class LoginRidderController extends GetxController {
       colorText: Colors.green,
       snackPosition: SnackPosition.TOP,
     );
+
+    Get.offAllNamed(RidderRoutes.riderDashboard);
   }
 
   void loginWithGoogle() {
