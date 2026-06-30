@@ -31,13 +31,26 @@ class _RiderDashboardState extends State<RiderDashboard> {
         onTap: (index) => setState(() => _selectedIndex = index),
         selectedItemColor: Colors.orange,
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.receipt), label: 'Orders'),
           BottomNavigationBarItem(
-            icon: Icon(Icons.attach_money),
-            label: 'Earnings',
+            icon: Icon(Icons.home_outlined),
+            activeIcon: Icon(Icons.home),
+            label: 'ໜ້າຫຼັກ',
           ),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.receipt_long_outlined),
+            activeIcon: Icon(Icons.receipt_long),
+            label: 'ອໍເດີ',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.monetization_on_outlined),
+            activeIcon: Icon(Icons.monetization_on),
+            label: 'ລາຍໄດ້',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person_outline),
+            activeIcon: Icon(Icons.person),
+            label: 'ໂປຣຟາຍ',
+          ),
         ],
       ),
     );

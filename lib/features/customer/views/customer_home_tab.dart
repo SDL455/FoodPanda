@@ -29,7 +29,7 @@ class CustomerHomeTab extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Deliver to',
+                            'ຈັດສົ່ງໄປທີ່',
                             style: TextStyle(
                               color: Colors.white70,
                               fontSize: 14,
@@ -44,7 +44,7 @@ class CustomerHomeTab extends StatelessWidget {
                               ),
                               SizedBox(width: 4),
                               Text(
-                                'Home - 123 Main St',
+                                'ບ້ານ - 123 ຖະໜົນຫຼັກ',
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 16,
@@ -69,7 +69,7 @@ class CustomerHomeTab extends StatelessWidget {
                     ),
                     child: TextField(
                       decoration: InputDecoration(
-                        hintText: 'Search for restaurants and food',
+                        hintText: 'ຄົ້ນຫາຮ້ານອາຫານ ແລະ ເມນູ...',
                         prefixIcon: Icon(Icons.search),
                         border: InputBorder.none,
                         contentPadding: EdgeInsets.all(16),
@@ -87,7 +87,7 @@ class CustomerHomeTab extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'What would you like to eat?',
+                    'ທ່ານຢາກຮັບປະທານຫຍັງດີ?',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 16),
@@ -96,11 +96,11 @@ class CustomerHomeTab extends StatelessWidget {
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: [
-                        CategoryItem(icon: Icons.local_pizza, label: 'Pizza'),
-                        CategoryItem(icon: Icons.lunch_dining, label: 'Burger'),
-                        CategoryItem(icon: Icons.rice_bowl, label: 'Asian'),
-                        CategoryItem(icon: Icons.local_drink, label: 'Drinks'),
-                        CategoryItem(icon: Icons.cake, label: 'Dessert'),
+                        CategoryItem(icon: Icons.local_pizza, label: 'ພິດຊ່າ'),
+                        CategoryItem(icon: Icons.lunch_dining, label: 'ເບີເກີ'),
+                        CategoryItem(icon: Icons.rice_bowl, label: 'ອາຫານລາວ'),
+                        CategoryItem(icon: Icons.local_drink, label: 'ເຄື່ອງດື່ມ'),
+                        CategoryItem(icon: Icons.cake, label: 'ຂອງຫວານ'),
                       ],
                     ),
                   ),
@@ -115,7 +115,7 @@ class CustomerHomeTab extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Special Offers',
+                    'ໂປຣໂມຊັນພິເສດ',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 12),
@@ -125,13 +125,13 @@ class CustomerHomeTab extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       children: [
                         PromoCard(
-                          title: '50% OFF',
-                          subtitle: 'On first order',
+                          title: 'ຫຼຸດ 50%',
+                          subtitle: 'ສຳລັບອໍເດີທຳອິດ',
                           color: Colors.orange,
                         ),
                         PromoCard(
-                          title: 'Free Delivery',
-                          subtitle: 'Orders above \$20',
+                          title: 'ຈັດສົ່ງຟຣີ',
+                          subtitle: 'ເມື່ອສັ່ງຊື້ເກີນ 200,000 ກີບ',
                           color: Colors.green,
                         ),
                       ],
@@ -148,7 +148,7 @@ class CustomerHomeTab extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Popular Restaurants',
+                    'ຮ້ານອາຫານຍອດນິຍົມ',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 12),
@@ -158,10 +158,10 @@ class CustomerHomeTab extends StatelessWidget {
                     itemCount: 5,
                     itemBuilder: (context, index) {
                       return RestaurantCard(
-                        name: 'Restaurant ${index + 1}',
-                        cuisine: 'Italian, Pizza',
-                        rating: 4.5,
-                        deliveryTime: '25-30 min',
+                        name: 'ຮ້ານອາຫານ ${index + 1}',
+                        cuisine: 'ອາຫານລາວ, ສົ້ມຕຳ',
+                        rating: 4.8,
+                        deliveryTime: '25-30 ນາທີ',
                         imageUrl:
                             'https://images.immediate.co.uk/production/volatile/sites/30/2023/06/Ultraprocessed-food-58d54c3.jpg?quality=90&webp=true&resize=440,400',
                       );

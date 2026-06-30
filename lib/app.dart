@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
-import 'package:foodpanda/features/admin/views/admin_dishboard.dart';
-import 'package:foodpanda/features/admin/views/widget/relo_card.dart';
+import 'package:foodpanda/features/admin/views/admin_dashboard.dart';
+import 'package:foodpanda/features/admin/views/widget/role_card.dart';
 import 'package:foodpanda/features/customer/views/customer_dashboard.dart';
 import 'package:foodpanda/features/rider/views/rider_dashboard.dart';
+import 'package:foodpanda/features/seller/views/seller_login.dart';
 
 class RoleSelectionScreen extends StatelessWidget {
   @override
@@ -21,13 +22,13 @@ class RoleSelectionScreen extends StatelessWidget {
           child: Column(
             children: [
               Expanded(
-                flex: 2,
+                flex: 3,
                 child: Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.restaurant, size: 80, color: Colors.white),
-                      SizedBox(height: 20),
+                      Icon(Icons.restaurant, size: 70, color: Colors.white),
+                      SizedBox(height: 12),
                       Text(
                         'Foodpanda',
                         style: TextStyle(
@@ -45,9 +46,10 @@ class RoleSelectionScreen extends StatelessWidget {
                 ),
               ),
               Expanded(
-                flex: 3,
-                child: Container(
-                  padding: EdgeInsets.all(20),
+                flex: 6,
+                child: SingleChildScrollView(
+                  physics: BouncingScrollPhysics(),
+                  padding: EdgeInsets.symmetric(horizontal: 20),
                   child: Column(
                     children: [
                       RoleCard(
@@ -62,7 +64,7 @@ class RoleSelectionScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(height: 20),
+                      SizedBox(height: 16),
                       RoleCard(
                         title: 'Customer',
                         subtitle: 'Order delicious food',
@@ -75,7 +77,7 @@ class RoleSelectionScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(height: 20),
+                      SizedBox(height: 16),
                       RoleCard(
                         title: 'Rider',
                         subtitle: 'Deliver food to customers',
@@ -88,6 +90,20 @@ class RoleSelectionScreen extends StatelessWidget {
                           ),
                         ),
                       ),
+                      SizedBox(height: 16),
+                      RoleCard(
+                        title: 'Seller',
+                        subtitle: 'Manage your restaurant and orders',
+                        icon: Icons.storefront,
+                        color: Colors.pink,
+                        onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SellerLoginScreen(),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 20),
                     ],
                   ),
                 ),

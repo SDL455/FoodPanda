@@ -1,56 +1,54 @@
 import 'package:flutter/material.dart';
+import 'package:foodpanda/shared/app_theme.dart';
+import 'package:foodpanda/shared/widgets/app_section_header.dart';
+import 'package:foodpanda/shared/widgets/app_status_badge.dart';
+import 'package:foodpanda/shared/widgets/app_empty_state.dart';
 
 class AdminOrders extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final List<Map<String, String>> statuses = [
+      {'key': 'pending',   'name': 'ລໍຖ້າ'},
+      {'key': 'confirmed', 'name': 'ຢືນຢັນ'},
+      {'key': 'preparing', 'name': 'ປຸງແຕ່ງ'},
+      {'key': 'delivering','name': 'ຈັດສົ່ງ'},
+      {'key': 'delivered', 'name': 'ສຳເລັດ'},
+    ];
+
     return Padding(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(AppDimens.pagePadding),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Order Management',
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 20),
+          Text('ການຈັດການອໍເດີ', style: AppTextStyles.pageTitle()),
+          const SizedBox(height: 20),
+
           Expanded(
             child: ListView.builder(
               itemCount: 20,
               itemBuilder: (context, index) {
-                List<String> statuses = [
-                  'Pending',
-                  'Confirmed',
-                  'Preparing',
-                  'On the way',
-                  'Delivered',
-                ];
-                String status = statuses[index % statuses.length];
-                Color statusColor = _getStatusColor(status);
-
+                final status = statuses[index % statuses.length];
                 return Card(
-                  margin: EdgeInsets.symmetric(vertical: 4),
+                  margin: const EdgeInsets.symmetric(vertical: 4),
+                  shape: AppShapes.card,
+                  elevation: AppDimens.cardElevation,
                   child: ListTile(
                     leading: CircleAvatar(
-                      backgroundColor: statusColor.withOpacity(0.1),
+                      backgroundColor: AppColors.admin.withOpacity(0.1),
                       child: Text(
-                        '#${1000 + index}',
-                        style: TextStyle(fontSize: 10),
+                        '${1000 + index}',
+                        style: const TextStyle(fontSize: 9, color: AppColors.admin, fontWeight: FontWeight.bold),
                       ),
                     ),
-                    title: Text('Order #${1000 + index}'),
+                    title: Text(
+                      'ອໍເດີ #${1000 + index}',
+                      style: AppTextStyles.cardTitle(),
+                    ),
                     subtitle: Text(
-                      'Customer: John Doe • Restaurant: Pizza Palace',
+                      'ລູກຄ້າ: John Doe • ຮ້ານ: Pizza Palace',
+                      style: AppTextStyles.caption(),
                     ),
-                    trailing: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                      decoration: BoxDecoration(
-                        color: statusColor.withOpacity(0.1),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Text(
-                        status,
-                        style: TextStyle(color: statusColor, fontSize: 12),
-                      ),
-                    ),
+                    trailing: AppStatusBadge.fromStatus(status['key']!),
                     onTap: () {},
                   ),
                 );
@@ -60,22 +58,5 @@ class AdminOrders extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  Color _getStatusColor(String status) {
-    switch (status) {
-      case 'Pending':
-        return Colors.orange;
-      case 'Confirmed':
-        return Colors.blue;
-      case 'Preparing':
-        return Colors.purple;
-      case 'On the way':
-        return Colors.indigo;
-      case 'Delivered':
-        return Colors.green;
-      default:
-        return Colors.grey;
-    }
   }
 }

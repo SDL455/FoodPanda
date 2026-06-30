@@ -1,87 +1,97 @@
 import 'package:flutter/material.dart';
+import 'package:foodpanda/shared/app_theme.dart';
+import 'package:foodpanda/shared/widgets/app_stats_card.dart';
+import 'package:foodpanda/shared/widgets/app_section_header.dart';
 
 class AdminOverview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(AppDimens.pagePadding),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Dashboard Overview',
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 20),
+          Text('ພາບລວມແດຊບອດ', style: AppTextStyles.pageTitle()),
+          const SizedBox(height: 20),
+
+          // ── Stats Row 1 ──────────────────────────────────────────────────
           Row(
             children: [
               Expanded(
-                child: StatsCard(
-                  title: 'Total Orders',
+                child: AppStatsCard(
+                  title: 'ອໍເດີທັງໝົດ',
                   value: '1,234',
                   icon: Icons.receipt,
-                  color: Colors.blue,
+                  color: AppColors.admin,
                 ),
               ),
-              SizedBox(width: 10),
+              const SizedBox(width: AppDimens.cardGap),
               Expanded(
-                child: StatsCard(
-                  title: 'Active Riders',
+                child: AppStatsCard(
+                  title: 'ຜູ້ຈັດສົ່ງທີ່ເຄື່ອນໄຫວ',
                   value: '89',
                   icon: Icons.delivery_dining,
-                  color: Colors.orange,
+                  color: AppColors.rider,
                 ),
               ),
             ],
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: AppDimens.cardGap),
+
+          // ── Stats Row 2 ──────────────────────────────────────────────────
           Row(
             children: [
               Expanded(
-                child: StatsCard(
-                  title: 'Restaurants',
+                child: AppStatsCard(
+                  title: 'ຮ້ານອາຫານ',
                   value: '456',
                   icon: Icons.restaurant,
-                  color: Colors.green,
+                  color: AppColors.success,
                 ),
               ),
-              SizedBox(width: 10),
+              const SizedBox(width: AppDimens.cardGap),
               Expanded(
-                child: StatsCard(
-                  title: 'Revenue',
-                  value: '\$12.5K',
+                child: AppStatsCard(
+                  title: 'ລາຍຮັບ',
+                  value: '12.5M ກີບ',
                   icon: Icons.attach_money,
                   color: Colors.purple,
                 ),
               ),
             ],
           ),
-          SizedBox(height: 30),
-          Text(
-            'Recent Activities',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 10),
+          const SizedBox(height: AppDimens.sectionSpacing),
+
+          // ── Recent Activities ────────────────────────────────────────────
+          const AppSectionHeader('ກິດຈະກຳຫຼ້າສຸດ'),
+          const SizedBox(height: 12),
+
           Expanded(
             child: ListView(
-              children: [
-                ActivityTile(
-                  title: 'New restaurant registered',
-                  subtitle: 'Pizza Palace joined the platform',
-                  time: '2 hours ago',
+              children: const [
+                _ActivityTile(
+                  title: 'ລົງທະບຽນຮ້ານອາຫານໃໝ່',
+                  subtitle: 'ຮ້ານ Pizza Palace ໄດ້ເຂົ້າຮ່ວມແພລດຟອມ',
+                  time: '2 ຊົ່ວໂມງກ່ອນ',
                   icon: Icons.restaurant,
                 ),
-                ActivityTile(
-                  title: 'Rider completed training',
-                  subtitle: 'John Doe completed safety training',
-                  time: '4 hours ago',
+                _ActivityTile(
+                  title: 'ຜູ້ຈັດສົ່ງສຳເລັດການອົບຮົມ',
+                  subtitle: 'John Doe ສຳເລັດການອົບຮົມຄວາມປອດໄພ',
+                  time: '4 ຊົ່ວໂມງກ່ອນ',
                   icon: Icons.school,
                 ),
-                ActivityTile(
-                  title: 'System maintenance',
-                  subtitle: 'Payment gateway updated',
-                  time: '1 day ago',
+                _ActivityTile(
+                  title: 'ບຳລຸງຮັກສາລະບົບ',
+                  subtitle: 'ອັບເດດລະບົບຊຳລະເງິນແລ້ວ',
+                  time: '1 ວັນກ່ອນ',
                   icon: Icons.build,
+                ),
+                _ActivityTile(
+                  title: 'ຜູ້ໃຊ້ໃໝ່ລົງທະບຽນ',
+                  subtitle: 'ມີ 12 ຜູ້ໃຊ້ໃໝ່ລົງທະບຽນໃນວັນນີ້',
+                  time: '5 ຊົ່ວໂມງກ່ອນ',
+                  icon: Icons.person_add,
                 ),
               ],
             ),
@@ -92,51 +102,16 @@ class AdminOverview extends StatelessWidget {
   }
 }
 
-class StatsCard extends StatelessWidget {
-  final String title;
-  final String value;
-  final IconData icon;
-  final Color color;
-
-  const StatsCard({
-    required this.title,
-    required this.value,
-    required this.icon,
-    required this.color,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      elevation: 4,
-      child: Padding(
-        padding: EdgeInsets.all(16),
-        child: Column(
-          children: [
-            Icon(icon, size: 30, color: color),
-            SizedBox(height: 8),
-            Text(
-              value,
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            Text(
-              title,
-              style: TextStyle(fontSize: 12, color: Colors.grey[600]),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class ActivityTile extends StatelessWidget {
+// ─────────────────────────────────────────────────────────────────────────────
+// Private widget (local to this file only)
+// ─────────────────────────────────────────────────────────────────────────────
+class _ActivityTile extends StatelessWidget {
   final String title;
   final String subtitle;
   final String time;
   final IconData icon;
 
-  const ActivityTile({
+  const _ActivityTile({
     required this.title,
     required this.subtitle,
     required this.time,
@@ -145,14 +120,19 @@ class ActivityTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: CircleAvatar(
-        backgroundColor: Colors.blue.withOpacity(0.1),
-        child: Icon(icon, color: Colors.blue),
+    return Card(
+      margin: const EdgeInsets.symmetric(vertical: 4),
+      shape: AppShapes.card,
+      elevation: AppDimens.cardElevation,
+      child: ListTile(
+        leading: CircleAvatar(
+          backgroundColor: AppColors.admin.withOpacity(0.1),
+          child: Icon(icon, color: AppColors.admin),
+        ),
+        title: Text(title, style: AppTextStyles.cardTitle()),
+        subtitle: Text(subtitle, style: AppTextStyles.caption()),
+        trailing: Text(time, style: AppTextStyles.caption()),
       ),
-      title: Text(title),
-      subtitle: Text(subtitle),
-      trailing: Text(time, style: TextStyle(fontSize: 12, color: Colors.grey)),
     );
   }
 }

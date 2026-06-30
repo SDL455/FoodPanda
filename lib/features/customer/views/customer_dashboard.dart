@@ -29,10 +29,25 @@ class _CustomerHomeState extends State<CustomerHome> {
         onTap: (index) => setState(() => _selectedIndex = index),
         selectedItemColor: Colors.pink,
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
-          BottomNavigationBarItem(icon: Icon(Icons.receipt), label: 'Orders'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home_outlined),
+            activeIcon: Icon(Icons.home),
+            label: 'ໜ້າຫຼັກ',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: 'ຄົ້ນຫາ',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.receipt_long_outlined),
+            activeIcon: Icon(Icons.receipt_long),
+            label: 'ອໍເດີ',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person_outline),
+            activeIcon: Icon(Icons.person),
+            label: 'ໂປຣຟາຍ',
+          ),
         ],
       ),
     );

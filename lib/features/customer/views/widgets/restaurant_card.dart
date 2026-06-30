@@ -19,16 +19,17 @@ class RestaurantCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       margin: EdgeInsets.only(bottom: 12),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: Padding(
         padding: EdgeInsets.all(12),
         child: Row(
           children: [
             ClipRRect(
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(12),
               child: Image.network(
                 imageUrl,
-                width: 10,
-                height: 10,
+                width: 80,
+                height: 80,
                 fit: BoxFit.cover,
               ),
             ),
@@ -39,17 +40,18 @@ class RestaurantCard extends StatelessWidget {
                 children: [
                   Text(
                     name,
-                    style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
+                  SizedBox(height: 4),
                   Text(
                     cuisine,
-                    style: TextStyle(color: Colors.grey[600], fontSize: 10),
+                    style: TextStyle(color: Colors.grey[600], fontSize: 14),
                   ),
                   SizedBox(height: 8),
                   Row(
                     children: [
                       Icon(Icons.star, color: Colors.orange, size: 16),
-                      Text(' $rating'),
+                      Text(' $rating', style: TextStyle(fontWeight: FontWeight.bold)),
                       SizedBox(width: 16),
                       Icon(Icons.access_time, color: Colors.grey, size: 16),
                       Text(' $deliveryTime'),

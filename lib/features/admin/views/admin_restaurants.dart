@@ -1,48 +1,62 @@
 import 'package:flutter/material.dart';
+import 'package:foodpanda/shared/app_theme.dart';
 
 class AdminRestaurants extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(AppDimens.pagePadding),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                'Restaurants',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
+              Text('ຮ້ານອາຫານ', style: AppTextStyles.pageTitle()),
               ElevatedButton.icon(
                 onPressed: () {},
-                icon: Icon(Icons.add),
-                label: Text('Add Restaurant'),
+                icon: const Icon(Icons.add),
+                label: const Text('ເພີ່ມຮ້ານ'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.admin,
+                  foregroundColor: Colors.white,
+                  shape: AppShapes.button as OutlinedBorder?,
+                ),
               ),
             ],
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
+
           Expanded(
             child: ListView.builder(
               itemCount: 10,
               itemBuilder: (context, index) {
+                final rating = '4.${index % 5 + 1}';
+                final orders = '${100 + index * 10}';
+
                 return Card(
-                  margin: EdgeInsets.symmetric(vertical: 4),
+                  margin: const EdgeInsets.symmetric(vertical: 4),
+                  shape: AppShapes.card,
+                  elevation: AppDimens.cardElevation,
                   child: ListTile(
                     leading: CircleAvatar(
-                      backgroundImage: NetworkImage(
-                        'https://via.placeholder.com/50',
-                      ),
+                      backgroundColor: AppColors.admin.withOpacity(0.1),
+                      child: Icon(Icons.restaurant, color: AppColors.admin),
                     ),
-                    title: Text('Restaurant ${index + 1}'),
+                    title: Text(
+                      'ຮ້ານອາຫານ ${index + 1}',
+                      style: AppTextStyles.cardTitle(),
+                    ),
                     subtitle: Text(
-                      'Rating: 4.${index % 5 + 1} • Orders: ${100 + index * 10}',
+                      '⭐ $rating  •  ອໍເດີ: $orders',
+                      style: AppTextStyles.caption(),
                     ),
                     trailing: PopupMenuButton(
-                      itemBuilder: (context) => [
-                        PopupMenuItem(child: Text('View Details')),
-                        PopupMenuItem(child: Text('Edit')),
-                        PopupMenuItem(child: Text('Suspend')),
+                      icon: const Icon(Icons.more_vert),
+                      itemBuilder: (_) => [
+                        const PopupMenuItem(value: 'view',    child: Text('ເບິ່ງລາຍລະອຽດ')),
+                        const PopupMenuItem(value: 'edit',    child: Text('ແກ້ໄຂ')),
+                        const PopupMenuItem(value: 'suspend', child: Text('ລະງັບ')),
                       ],
                     ),
                   ),

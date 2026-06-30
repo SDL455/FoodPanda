@@ -1,41 +1,50 @@
 import 'package:flutter/material.dart';
+import 'package:foodpanda/shared/app_theme.dart';
+import 'package:foodpanda/shared/widgets/app_status_badge.dart';
 
 class AdminRiders extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(AppDimens.pagePadding),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                'Riders',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
+              Text('ຜູ້ຈັດສົ່ງ (ໄຮເດີ)', style: AppTextStyles.pageTitle()),
               ElevatedButton.icon(
                 onPressed: () {},
-                icon: Icon(Icons.add),
-                label: Text('Add Rider'),
+                icon: const Icon(Icons.person_add),
+                label: const Text('ເພີ່ມ'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.admin,
+                  foregroundColor: Colors.white,
+                  shape: AppShapes.button as OutlinedBorder?,
+                ),
               ),
             ],
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
+
           Expanded(
             child: ListView.builder(
               itemCount: 15,
               itemBuilder: (context, index) {
-                bool isOnline = index % 3 == 0;
+                final isOnline = index % 3 == 0;
+                final rating = '4.${index % 5 + 1}';
+
                 return Card(
-                  margin: EdgeInsets.symmetric(vertical: 4),
+                  margin: const EdgeInsets.symmetric(vertical: 4),
+                  shape: AppShapes.card,
+                  elevation: AppDimens.cardElevation,
                   child: ListTile(
                     leading: Stack(
                       children: [
-                        CircleAvatar(
-                          backgroundImage: NetworkImage(
-                            'https://via.placeholder.com/50',
-                          ),
+                        const CircleAvatar(
+                          backgroundColor: Color(0xFFE3F2FD),
+                          child: Icon(Icons.delivery_dining, color: AppColors.admin),
                         ),
                         Positioned(
                           right: 0,
@@ -44,7 +53,7 @@ class AdminRiders extends StatelessWidget {
                             width: 12,
                             height: 12,
                             decoration: BoxDecoration(
-                              color: isOnline ? Colors.green : Colors.grey,
+                              color: isOnline ? AppColors.success : Colors.grey,
                               shape: BoxShape.circle,
                               border: Border.all(color: Colors.white, width: 2),
                             ),
@@ -52,15 +61,27 @@ class AdminRiders extends StatelessWidget {
                         ),
                       ],
                     ),
-                    title: Text('Rider ${index + 1}'),
-                    subtitle: Text(
-                      '${isOnline ? 'Online' : 'Offline'} • Rating: 4.${index % 5 + 1}',
+                    title: Text(
+                      'ຜູ້ຈັດສົ່ງ ${index + 1}',
+                      style: AppTextStyles.cardTitle(),
                     ),
-                    trailing: PopupMenuButton(
-                      itemBuilder: (context) => [
-                        PopupMenuItem(child: Text('View Profile')),
-                        PopupMenuItem(child: Text('Performance')),
-                        PopupMenuItem(child: Text('Send Message')),
+                    subtitle: Text(
+                      'ໄລຍະທາງ: ${(index + 1) * 12} km  •  ⭐ $rating',
+                      style: AppTextStyles.caption(),
+                    ),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        AppStatusBadge.fromStatus(isOnline ? 'online' : 'offline'),
+                        const SizedBox(width: 4),
+                        PopupMenuButton(
+                          icon: const Icon(Icons.more_vert, size: 18),
+                          itemBuilder: (_) => [
+                            const PopupMenuItem(child: Text('ເບິ່ງໂປຣຟາຍ')),
+                            const PopupMenuItem(child: Text('ຜົນງານ')),
+                            const PopupMenuItem(child: Text('ສົ່ງຂໍ້ຄວາມ')),
+                          ],
+                        ),
                       ],
                     ),
                   ),

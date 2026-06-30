@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:foodpanda/shared/app_theme.dart';
+import 'package:foodpanda/shared/widgets/app_stats_card.dart';
+import 'package:foodpanda/shared/widgets/app_section_header.dart';
+import 'package:foodpanda/shared/widgets/app_notification_badge.dart';
 
 class RiderHome extends StatefulWidget {
   @override
@@ -7,16 +11,18 @@ class RiderHome extends StatefulWidget {
 
 class _RiderHomeState extends State<RiderHome> {
   bool _isOnline = false;
+  int _notificationCount = 2;
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Padding(
-        padding: EdgeInsets.all(16),
+      child: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        padding: const EdgeInsets.all(AppDimens.pagePadding),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Header
+            // ── Header ────────────────────────────────────────────────────
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -24,203 +30,162 @@ class _RiderHomeState extends State<RiderHome> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Hello, John!',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
+                      'ສະບາຍດີ, ໄຮເດີ!',
+                      style: AppTextStyles.pageTitle(
+                        color: AppColors.rider,
                       ),
                     ),
                     Text(
-                      'Ready to start delivering?',
-                      style: TextStyle(color: Colors.grey),
+                      'ພ້ອມທີ່ຈະເລີ່ມຈັດສົ່ງແລ້ວບໍ?',
+                      style: AppTextStyles.body(),
                     ),
                   ],
                 ),
-                IconButton(icon: Icon(Icons.notifications), onPressed: () {}),
+                // NEW: Notification badge (consistent with Seller & Admin)
+                AppNotificationBadge(
+                  count: _notificationCount,
+                  iconColor: AppColors.rider,
+                  onTap: () => setState(() => _notificationCount = 0),
+                ),
               ],
             ),
-            SizedBox(height: 30),
+            const SizedBox(height: 28),
 
-            // Online/Offline Toggle
-            Center(
-              child: Column(
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        _isOnline = !_isOnline;
-                      });
-                    },
-                    child: Container(
-                      width: 120,
-                      height: 120,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: _isOnline ? Colors.green : Colors.grey,
-                        boxShadow: [
-                          BoxShadow(
-                            color: (_isOnline ? Colors.green : Colors.grey)
-                                .withOpacity(0.3),
-                            spreadRadius: 5,
-                            blurRadius: 10,
-                          ),
-                        ],
-                      ),
-                      child: Icon(
-                        _isOnline
-                            ? Icons.power_settings_new
-                            : Icons.power_settings_new,
-                        size: 50,
+            // ── Online / Offline Toggle ───────────────────────────────────
+            GestureDetector(
+              onTap: () => setState(() => _isOnline = !_isOnline),
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 300),
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(AppDimens.cardRadius),
+                  gradient: LinearGradient(
+                    colors: _isOnline
+                        ? [Colors.green.shade600, Colors.teal.shade400]
+                        : [Colors.grey.shade600, Colors.grey.shade400],
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: (_isOnline ? Colors.green : Colors.grey).withOpacity(0.3),
+                      blurRadius: 10,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  children: [
+                    Icon(
+                      Icons.power_settings_new,
+                      size: 52,
+                      color: Colors.white,
+                    ),
+                    const SizedBox(height: 10),
+                    Text(
+                      _isOnline ? 'ທ່ານກຳລັງອອນລາຍ' : 'ທ່ານກຳລັງອັອຟລາຍ',
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
                         color: Colors.white,
                       ),
                     ),
-                  ),
-                  SizedBox(height: 16),
-                  Text(
-                    _isOnline ? 'You\'re Online' : 'You\'re Offline',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: _isOnline ? Colors.green : Colors.grey,
+                    Text(
+                      _isOnline ? 'ແຕະເພື່ອອັອຟລາຍ' : 'ແຕະເພື່ອອອນລາຍ',
+                      style: TextStyle(color: Colors.white.withOpacity(0.8)),
                     ),
-                  ),
-                  Text(
-                    _isOnline ? 'Tap to go offline' : 'Tap to go online',
-                    style: TextStyle(color: Colors.grey),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
+            const SizedBox(height: 28),
 
-            SizedBox(height: 40),
+            // ── Today's Stats ─────────────────────────────────────────────
+            const AppSectionHeader('ສະຫຼຸບລາຍງານມື້ນີ້'),
+            const SizedBox(height: 12),
 
-            // Today's Stats
-            Text(
-              'Today\'s Summary',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 16),
+            // Using shared AppStatsCard (replaces old RiderStatsCard)
             Row(
               children: [
                 Expanded(
-                  child: RiderStatsCard(
-                    title: 'Deliveries',
+                  child: AppStatsCard(
+                    title: 'ງານທີ່ຈັດສົ່ງ',
                     value: '12',
                     icon: Icons.delivery_dining,
-                    color: Colors.blue,
+                    color: AppColors.admin,
                   ),
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: AppDimens.cardGap),
                 Expanded(
-                  child: RiderStatsCard(
-                    title: 'Earnings',
-                    value: '\$85',
-                    icon: Icons.attach_money,
-                    color: Colors.green,
+                  child: AppStatsCard(
+                    title: 'ລາຍໄດ້ມື້ນີ້',
+                    value: '85K ກີບ',
+                    icon: Icons.monetization_on_outlined,
+                    color: AppColors.success,
                   ),
                 ),
               ],
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: AppDimens.cardGap),
             Row(
               children: [
                 Expanded(
-                  child: RiderStatsCard(
-                    title: 'Hours',
-                    value: '6.5',
+                  child: AppStatsCard(
+                    title: 'ຊົ່ວໂມງແລ່ນງານ',
+                    value: '6.5 ຊມ',
                     icon: Icons.access_time,
-                    color: Colors.orange,
+                    color: AppColors.rider,
                   ),
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: AppDimens.cardGap),
                 Expanded(
-                  child: RiderStatsCard(
-                    title: 'Rating',
-                    value: '4.8',
-                    icon: Icons.star,
-                    color: Colors.yellow.shade700,
+                  child: AppStatsCard(
+                    title: 'ຄະແນນລວມ',
+                    value: '4.8 ⭐',
+                    icon: Icons.star_rounded,
+                    color: Colors.amber.shade700,
                   ),
                 ),
               ],
             ),
 
-            SizedBox(height: 30),
-
-            // Quick Actions
+            // ── Quick Actions (Online only) ───────────────────────────────
             if (_isOnline) ...[
-              Text(
-                'Quick Actions',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 16),
+              const SizedBox(height: 24),
+              const AppSectionHeader('ເມນູດ່ວນ'),
+              const SizedBox(height: 12),
               Row(
                 children: [
                   Expanded(
                     child: ElevatedButton.icon(
                       onPressed: () {},
-                      icon: Icon(Icons.location_on),
-                      label: Text('View Map'),
+                      icon: const Icon(Icons.location_on),
+                      label: const Text('ເບິ່ງແຜນທີ່'),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.orange,
+                        backgroundColor: AppColors.rider,
                         foregroundColor: Colors.white,
-                        padding: EdgeInsets.symmetric(vertical: 12),
+                        padding: const EdgeInsets.symmetric(vertical: 12),
+                        shape: AppShapes.button as OutlinedBorder?,
                       ),
                     ),
                   ),
-                  SizedBox(width: 10),
+                  const SizedBox(width: AppDimens.cardGap),
                   Expanded(
-                    child: ElevatedButton.icon(
+                    child: OutlinedButton.icon(
                       onPressed: () {},
-                      icon: Icon(Icons.help),
-                      label: Text('Help'),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.grey,
-                        foregroundColor: Colors.white,
-                        padding: EdgeInsets.symmetric(vertical: 12),
+                      icon: const Icon(Icons.help_outline),
+                      label: const Text('ຊ່ວຍເຫຼືອ'),
+                      style: OutlinedButton.styleFrom(
+                        foregroundColor: AppColors.rider,
+                        side: const BorderSide(color: AppColors.rider),
+                        padding: const EdgeInsets.symmetric(vertical: 12),
+                        shape: AppShapes.button as OutlinedBorder?,
                       ),
                     ),
                   ),
                 ],
               ),
             ],
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class RiderStatsCard extends StatelessWidget {
-  final String title;
-  final String value;
-  final IconData icon;
-  final Color color;
-
-  const RiderStatsCard({
-    required this.title,
-    required this.value,
-    required this.icon,
-    required this.color,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      elevation: 4,
-      child: Padding(
-        padding: EdgeInsets.all(16),
-        child: Column(
-          children: [
-            Icon(icon, size: 30, color: color),
-            SizedBox(height: 8),
-            Text(
-              value,
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            Text(
-              title,
-              style: TextStyle(fontSize: 12, color: Colors.grey[600]),
-            ),
+            const SizedBox(height: 16),
           ],
         ),
       ),
