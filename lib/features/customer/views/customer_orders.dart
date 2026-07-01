@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:foodpanda/shared/app_theme.dart';
-import 'package:foodpanda/shared/widgets/app_section_header.dart';
 import 'package:foodpanda/shared/widgets/app_status_badge.dart';
 import 'package:foodpanda/shared/widgets/app_empty_state.dart';
 
@@ -17,7 +16,13 @@ class _CustomerOrdersState extends State<CustomerOrders>
 
   // Mock orders list – active + history
   final List<Map<String, dynamic>> _orders = List.generate(10, (i) {
-    final statuses = ['delivered', 'delivered', 'delivering', 'preparing', 'pending'];
+    final statuses = [
+      'delivered',
+      'delivered',
+      'delivering',
+      'preparing',
+      'pending',
+    ];
     final status = statuses[i % statuses.length];
     final price = 150000 + i * 20000;
     final formatted = price.toString().replaceAllMapped(
@@ -50,8 +55,14 @@ class _CustomerOrdersState extends State<CustomerOrders>
   @override
   Widget build(BuildContext context) {
     final active = _orders
-        .where((o) => ['pending', 'confirmed', 'preparing', 'delivering']
-            .contains(o['status']))
+        .where(
+          (o) => [
+            'pending',
+            'confirmed',
+            'preparing',
+            'delivering',
+          ].contains(o['status']),
+        )
         .toList();
     final history = _orders
         .where((o) => ['delivered', 'cancelled'].contains(o['status']))
@@ -63,8 +74,10 @@ class _CustomerOrdersState extends State<CustomerOrders>
         children: [
           Padding(
             padding: const EdgeInsets.fromLTRB(
-              AppDimens.pagePadding, AppDimens.pagePadding,
-              AppDimens.pagePadding, 0,
+              AppDimens.pagePadding,
+              AppDimens.pagePadding,
+              AppDimens.pagePadding,
+              0,
             ),
             child: Text('ອໍເດີຂອງທ່ານ', style: AppTextStyles.pageTitle()),
           ),
@@ -95,7 +108,10 @@ class _CustomerOrdersState extends State<CustomerOrders>
     );
   }
 
-  Widget _buildList(List<Map<String, dynamic>> orders, {required String emptyMsg}) {
+  Widget _buildList(
+    List<Map<String, dynamic>> orders, {
+    required String emptyMsg,
+  }) {
     if (orders.isEmpty) {
       return AppEmptyState(
         icon: Icons.receipt_long_outlined,
@@ -135,18 +151,28 @@ class _CustomerOrdersState extends State<CustomerOrders>
             const SizedBox(height: 10),
 
             // Restaurant & items
-            Row(children: [
-              Icon(Icons.restaurant, size: 16, color: Colors.grey.shade500),
-              const SizedBox(width: 8),
-              Text(order['restaurant'], style: AppTextStyles.body()),
-            ]),
+            Row(
+              children: [
+                Icon(Icons.restaurant, size: 16, color: Colors.grey.shade500),
+                const SizedBox(width: 8),
+                Text(order['restaurant'], style: AppTextStyles.body()),
+              ],
+            ),
             const SizedBox(height: 4),
-            Row(children: [
-              Icon(Icons.shopping_bag_outlined, size: 16, color: Colors.grey.shade500),
-              const SizedBox(width: 8),
-              Text('${order['items']} • ${order['price']}',
-                  style: AppTextStyles.body()),
-            ]),
+            Row(
+              children: [
+                Icon(
+                  Icons.shopping_bag_outlined,
+                  size: 16,
+                  color: Colors.grey.shade500,
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  '${order['items']} • ${order['price']}',
+                  style: AppTextStyles.body(),
+                ),
+              ],
+            ),
             const SizedBox(height: 10),
 
             // Footer: date + reorder

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:foodpanda/shared/app_theme.dart';
-import 'package:foodpanda/shared/widgets/app_section_header.dart';
 import 'package:foodpanda/shared/widgets/app_status_badge.dart';
 import 'package:foodpanda/shared/widgets/app_empty_state.dart';
 
@@ -90,29 +89,44 @@ class _RiderOrdersState extends State<RiderOrders> {
             const SizedBox(height: 12),
 
             // Restaurant
-            Row(children: [
-              Icon(Icons.restaurant, size: 16, color: Colors.grey.shade500),
-              const SizedBox(width: 8),
-              Text(order['restaurant'], style: AppTextStyles.body()),
-            ]),
+            Row(
+              children: [
+                Icon(Icons.restaurant, size: 16, color: Colors.grey.shade500),
+                const SizedBox(width: 8),
+                Text(order['restaurant'], style: AppTextStyles.body()),
+              ],
+            ),
             const SizedBox(height: 6),
 
             // Address
-            Row(children: [
-              Icon(Icons.location_on, size: 16, color: Colors.grey.shade500),
-              const SizedBox(width: 8),
-              Expanded(child: Text(order['address'], style: AppTextStyles.body())),
-            ]),
+            Row(
+              children: [
+                Icon(Icons.location_on, size: 16, color: Colors.grey.shade500),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(order['address'], style: AppTextStyles.body()),
+                ),
+              ],
+            ),
             const SizedBox(height: 6),
 
             // Amount
-            Row(children: [
-              Icon(Icons.payments_outlined, size: 16, color: Colors.grey.shade500),
-              const SizedBox(width: 8),
-              Text(order['amount'],
-                  style: AppTextStyles.body(color: AppColors.success)
-                      .copyWith(fontWeight: FontWeight.bold)),
-            ]),
+            Row(
+              children: [
+                Icon(
+                  Icons.payments_outlined,
+                  size: 16,
+                  color: Colors.grey.shade500,
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  order['amount'],
+                  style: AppTextStyles.body(
+                    color: AppColors.success,
+                  ).copyWith(fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
             const SizedBox(height: 14),
 
             // Action buttons

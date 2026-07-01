@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:foodpanda/shared/app_theme.dart';
-import 'package:foodpanda/shared/widgets/app_section_header.dart';
 import 'package:foodpanda/shared/widgets/app_status_badge.dart';
-import 'package:foodpanda/shared/widgets/app_empty_state.dart';
 
 class AdminOrders extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final List<Map<String, String>> statuses = [
-      {'key': 'pending',   'name': 'ລໍຖ້າ'},
+      {'key': 'pending', 'name': 'ລໍຖ້າ'},
       {'key': 'confirmed', 'name': 'ຢືນຢັນ'},
       {'key': 'preparing', 'name': 'ປຸງແຕ່ງ'},
-      {'key': 'delivering','name': 'ຈັດສົ່ງ'},
+      {'key': 'delivering', 'name': 'ຈັດສົ່ງ'},
       {'key': 'delivered', 'name': 'ສຳເລັດ'},
     ];
 
@@ -37,7 +35,11 @@ class AdminOrders extends StatelessWidget {
                       backgroundColor: AppColors.admin.withOpacity(0.1),
                       child: Text(
                         '${1000 + index}',
-                        style: const TextStyle(fontSize: 9, color: AppColors.admin, fontWeight: FontWeight.bold),
+                        style: const TextStyle(
+                          fontSize: 9,
+                          color: AppColors.admin,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     title: Text(

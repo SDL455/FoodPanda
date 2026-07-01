@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:foodpanda/shared/app_theme.dart';
 import 'package:foodpanda/shared/widgets/app_section_header.dart';
 
 class SellerHomeTab extends StatefulWidget {
@@ -17,10 +16,27 @@ class SellerHomeTab extends StatefulWidget {
 
 class _SellerHomeTabState extends State<SellerHomeTab> {
   // Mock data for weekly sales
-  final List<double> _weeklySalesData = [450000, 680000, 520000, 890000, 1100000, 1450000, 1250000];
-  final List<String> _weeklyDays = ['ຈັນ', 'ອັງ', 'ພຸດ', 'ພະ', 'ສຸກ', 'ເສົາ', 'ທິດ'];
-  
-  double get _maxSale => _weeklySalesData.reduce((curr, next) => curr > next ? curr : next);
+  final List<double> _weeklySalesData = [
+    450000,
+    680000,
+    520000,
+    890000,
+    1100000,
+    1450000,
+    1250000,
+  ];
+  final List<String> _weeklyDays = [
+    'ຈັນ',
+    'ອັງ',
+    'ພຸດ',
+    'ພະ',
+    'ສຸກ',
+    'ເສົາ',
+    'ທິດ',
+  ];
+
+  double get _maxSale =>
+      _weeklySalesData.reduce((curr, next) => curr > next ? curr : next);
 
   @override
   Widget build(BuildContext context) {
@@ -33,17 +49,17 @@ class _SellerHomeTabState extends State<SellerHomeTab> {
           // Welcome Card
           _buildWelcomeHeader(),
           SizedBox(height: 16),
-          
+
           // Open / Close Status Controller
           _buildStatusToggleCard(),
           SizedBox(height: 20),
-          
+
           // Quick Stats Row & Grid
           const AppSectionHeader('ສະຫຼຸບຜົນງານມື້ນີ້'),
           SizedBox(height: 12),
           _buildMetricsGrid(),
           SizedBox(height: 24),
-          
+
           // Sales Chart Card
           _buildSalesChartCard(),
           SizedBox(height: 20),
@@ -102,10 +118,11 @@ class _SellerHomeTabState extends State<SellerHomeTab> {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: (widget.isStoreOpen ? Colors.green : Colors.grey).withOpacity(0.3),
+            color: (widget.isStoreOpen ? Colors.green : Colors.grey)
+                .withOpacity(0.3),
             blurRadius: 10,
             offset: Offset(0, 4),
-          )
+          ),
         ],
       ),
       child: Row(
@@ -128,7 +145,9 @@ class _SellerHomeTabState extends State<SellerHomeTab> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  widget.isStoreOpen ? 'ຮ້ານກຳລັງເປີດບໍລິການ' : 'ຮ້ານປິດບໍລິການຊົ່ວຄາວ',
+                  widget.isStoreOpen
+                      ? 'ຮ້ານກຳລັງເປີດບໍລິການ'
+                      : 'ຮ້ານປິດບໍລິການຊົ່ວຄາວ',
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -137,8 +156,8 @@ class _SellerHomeTabState extends State<SellerHomeTab> {
                 ),
                 SizedBox(height: 4),
                 Text(
-                  widget.isStoreOpen 
-                      ? 'ລູກຄ້າສາມາດສັ່ງອາຫານໄດ້ຕາມປົກກະຕິ' 
+                  widget.isStoreOpen
+                      ? 'ລູກຄ້າສາມາດສັ່ງອາຫານໄດ້ຕາມປົກກະຕິ'
                       : 'ປິດການຮັບອໍເດີຈາກລູກຄ້າໃນເວລານີ້',
                   style: TextStyle(
                     fontSize: 12,
@@ -284,10 +303,7 @@ class _SellerHomeTabState extends State<SellerHomeTab> {
           children: [
             Container(
               padding: EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: bgColor,
-                shape: BoxShape.circle,
-              ),
+              decoration: BoxDecoration(color: bgColor, shape: BoxShape.circle),
               child: Icon(icon, color: iconColor, size: 36),
             ),
             SizedBox(width: 16),
@@ -316,7 +332,11 @@ class _SellerHomeTabState extends State<SellerHomeTab> {
                 ],
               ),
             ),
-            Icon(Icons.arrow_forward_ios, color: Colors.grey.shade400, size: 16),
+            Icon(
+              Icons.arrow_forward_ios,
+              color: Colors.grey.shade400,
+              size: 16,
+            ),
           ],
         ),
       ),
@@ -384,7 +404,7 @@ class _SellerHomeTabState extends State<SellerHomeTab> {
                 children: List.generate(_weeklySalesData.length, (index) {
                   final sale = _weeklySalesData[index];
                   final ratio = sale / _maxSale;
-                  
+
                   return Expanded(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -402,7 +422,9 @@ class _SellerHomeTabState extends State<SellerHomeTab> {
                         // Bar with animated scale
                         Expanded(
                           child: TweenAnimationBuilder<double>(
-                            duration: Duration(milliseconds: 800 + (index * 100)),
+                            duration: Duration(
+                              milliseconds: 800 + (index * 100),
+                            ),
                             curve: Curves.easeOutBack,
                             tween: Tween(begin: 0.0, end: ratio),
                             builder: (context, val, child) {
@@ -428,7 +450,7 @@ class _SellerHomeTabState extends State<SellerHomeTab> {
                                         color: Colors.pink.withOpacity(0.15),
                                         blurRadius: 4,
                                         offset: Offset(0, -2),
-                                      )
+                                      ),
                                     ],
                                   ),
                                 ),
